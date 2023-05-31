@@ -4,7 +4,7 @@ import router from "./Layout/Routes";
 
 function App() {
   return (
-    <div className="App">
+    <div className="w-full mx-auto bg-workout-secondary">
       <header className="App-header">
         <RouterProvider router={router}></RouterProvider>
       </header>

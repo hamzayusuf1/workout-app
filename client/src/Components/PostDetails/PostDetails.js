@@ -1,6 +1,4 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../../../../auth/AuthContext/AuthProvider";
-import { toast } from "react-hot-toast";
 
 const DUMMY_DATA = [
   {
@@ -12,6 +10,8 @@ const DUMMY_DATA = [
     description: "Use barbell to progresivley increase weight on chest",
   },
 ];
+
+const { _id, title, description, image, muscleGroupId } = DUMMY_DATA[0];
 
 const PostDetails = () => {
   const handleSaveWorkout = (e) => {
@@ -28,9 +28,9 @@ const PostDetails = () => {
           <h2 className="card-title">{title}</h2>
           <h2 className="card-title">{muscleGroupId}</h2>
           <p>{description}</p>
-          <p>Posted By: {userName}</p>
+          <p>Posted By: USER</p>
 
-          <p>Post Date: {postDate}</p>
+          <p>{`${Date.now()}`}</p>
           <button
             className=" p-4 badge bg-workout-primary text-workout-secondary font-bold"
             onClick={handleSaveWorkout}

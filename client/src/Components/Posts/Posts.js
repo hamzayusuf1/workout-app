@@ -13,25 +13,6 @@ const Posts = () => {
   const [size, setSize] = useState(6);
   const pages = Math.ceil(count / size);
 
-  useEffect(() => {
-    fetch("http://localhost:5002/getAllCategory")
-      .then((res) => res.json())
-      .then((data) => {
-        setSearchCategory(data);
-      });
-  }, [setSearchCategory]);
-
-  useEffect(() => {
-    const url = `http://localhost:5002/getAllPost?page=${page}&size=${size}&search=${search}&category=${category}`;
-    // console.log(url);
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setPosts(data?.result);
-        setCount(data?.count);
-      });
-  }, [page, size, search, category]);
-
   return (
     <div className=" mt-10">
       <div className=" text-center text-4xl font-bold text-workout-primary">
