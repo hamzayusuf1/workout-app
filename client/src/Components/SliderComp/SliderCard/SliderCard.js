@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-hot-toast";
 
 const SliderCard = ({ sliderCardPost }) => {
   const { _id, title, description, image, muscleGroupId } = sliderCardPost;
@@ -27,10 +26,7 @@ const SliderCard = ({ sliderCardPost }) => {
               View Details
             </button>
           </Link>
-          <button
-            className=" p-4 badge bg-workout-primary text-workout-secondary font-bold"
-            onClick={handleSaveWorkout}
-          >
+          <button className=" p-4 badge bg-workout-primary text-workout-secondary font-bold">
             Save Workout
           </button>
         </div>

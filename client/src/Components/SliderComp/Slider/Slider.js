@@ -27,6 +27,40 @@ const MainSlider = () => {
     },
   ]);
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
     <div className="my-16">
       <div className=" text-center text-4xl font-bold text-workout-primary">
@@ -35,7 +69,7 @@ const MainSlider = () => {
       <div className="divider w-64  mx-auto">
         <CiDumbbell className="text-8xl text-workout-primary"></CiDumbbell>
       </div>
-      <Slider>
+      <Slider {...settings}>
         {sliderCardPosts.map((sliderCardPost) => (
           <SliderCard
             key={sliderCardPost._id}
