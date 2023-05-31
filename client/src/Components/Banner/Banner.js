@@ -22,8 +22,7 @@ const Banner = () => {
             <span className="text-workout-primary">Fit</span>{" "}
           </h1>
           <p className="text-xl mb-12 w-66 text-center mx-auto">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra
-            euismod odio, gravida pellentesque urna varius vitae.
+            The only site you need to achieve your dream physique
           </p>
           {/* <a href="#" className="bg-workout-primary text-workout-secondary py-4 px-12 rounded-full hover:bg-indigo-600">Demo</a> */}
         </div>
