@@ -11,6 +11,7 @@ import AddPost from "../Components/DashboardComp/AddPost/AddPost";
 import EditProfile from "../Components/DashboardComp/EditProfile/EditProfile";
 import AllMyPosts from "../Components/DashboardComp/AllMyPosts/AllMyPosts";
 import MySavedWorkouts from "../Components/DashboardComp/MySavedWorkouts/MySavedWorkouts";
+import AddCategory from "../Components/DashboardComp/AddCategory/AddCategory";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/mySavedWorkouts",
             element: <MySavedWorkouts></MySavedWorkouts>,
+          },
+          {
+            path: "/dashboard/addCategory",
+            element: <AddCategory></AddCategory>,
           },
         ],
       },
