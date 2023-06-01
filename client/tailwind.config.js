@@ -5,7 +5,7 @@ module.exports = {
     colors: {
       workout: {
         secondary: "#0C1729",
-        primary: "#91E03D",
+        primary: "#458D62",
         tertiary: "#282c34",
         900: "bg-red-500",
       },
