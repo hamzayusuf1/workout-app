@@ -8,6 +8,7 @@ import SignUp from "../Components/SignUp/SignUp";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import DashboardHome from "../Components/DashboardComp/DashboardHome/DashboardHome";
 import AddPost from "../Components/DashboardComp/AddPost/AddPost";
+import EditProfile from "../Components/DashboardComp/EditProfile/EditProfile";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/addPost",
             element: <AddPost></AddPost>,
+          },
+          {
+            path: "/dashboard/editProfile",
+            element: <EditProfile></EditProfile>,
           },
         ],
       },
