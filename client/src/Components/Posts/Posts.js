@@ -23,9 +23,6 @@ const Posts = () => {
     },
   ]);
   const [count, setCount] = useState("");
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("");
-  const [searchCategory, setSearchCategory] = useState([]);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(6);
   const pages = Math.ceil(count / size);
@@ -44,9 +41,6 @@ const Posts = () => {
             <div className="form-control">
               <div className="input-group">
                 <input
-                  onChange={(event) => {
-                    setSearch(event.target.value);
-                  }}
                   type="text"
                   placeholder="Search…"
                   className="input input-bordered text-xl"
@@ -78,17 +72,11 @@ const Posts = () => {
             <div className="input-group">
               <select
                 className="select select-bordered text-xl"
-                onChange={(event) => setCategory(event.target.value)}
                 defaultValue={""}
               >
                 <option value="" selected>
                   Select
                 </option>
-                {searchCategory.map((value) => (
-                  <option value={value?.categoryName}>
-                    {value?.categoryName}
-                  </option>
-                ))}
               </select>
               <button className="btn">Go</button>
             </div>
