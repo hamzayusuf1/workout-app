@@ -63,14 +63,14 @@ const Dashboard = () => {
                   to="/dashboard/allMyPosts"
                   className="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out"
                 >
-                  <span className="">My All Post</span>
+                  <span className="">All My Posts</span>
                 </Link>
 
                 <Link
                   to="/dashboard/mySavedWorkouts"
                   className="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out"
                 >
-                  <span className="">My Saved Workout</span>
+                  <span className="">My Saved Workouts</span>
                 </Link>
               </div>
             </div>
