@@ -6,7 +6,8 @@ import PostDetails from "../Components/PostDetails/PostDetails";
 import SignIn from "../Components/SignIn/SignIn";
 import SignUp from "../Components/SignUp/SignUp";
 import Dashboard from "../Pages/Dashboard/Dashboard";
-import DashboardHome from "../Components/DashboardHome/DasboardHome/DashboardHome";
+import DashboardHome from "../Components/DashboardComp/DashboardHome/DashboardHome";
+import AddPost from "../Components/DashboardComp/AddPost/AddPost";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard",
             element: <DashboardHome></DashboardHome>,
+          },
+          {
+            path: "/dashboard/addPost",
+            element: <AddPost></AddPost>,
           },
         ],
       },

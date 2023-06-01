@@ -1,7 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { useAppContext } from "../../State/AppContext";
 
 const Dashboard = () => {
+  const { userData } = useAppContext();
   return (
     <div className="flex " style={{ color: "white" }}>
       <div className="font-poppins antialiased">
@@ -18,20 +20,21 @@ const Dashboard = () => {
                     src={"/images/user.png"}
                     alt="Avatar user"
                     className="w-10 md:w-16 rounded-full mx-auto"
+                    onClick={console.log(userData)}
                   />
                 </Link>
                 <div>
                   <h2 className="font-medium text-xs md:text-sm text-center text-teal-500">
-                    {"Hamza"}
+                    {userData.firstName}
                   </h2>
                   <p className="text-xs text-gray-500 text-center">
-                    {"hamzayusuf26@outlook.com"}
+                    {userData.email}
                   </p>
                   <p className="text-xs text-gray-500 text-center">
-                    Weight: {"78kg"}
+                    Weight: {userData.weight}
                   </p>
                   <p className="text-xs text-gray-500 text-center">
-                    Height: {"6'0"}
+                    Height: {userData.height}
                   </p>
                 </div>
                 <div className="divider"></div>
