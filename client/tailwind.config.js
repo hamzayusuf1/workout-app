@@ -6,6 +6,7 @@ module.exports = {
       workout: {
         secondary: "#0C1729",
         primary: "#91E03D",
+        tertiary: "#282c34",
         900: "bg-red-500",
       },
     },

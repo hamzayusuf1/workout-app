@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import { toast } from "react-hot-toast";
-
 const DUMMY_DATA = [
   {
     _id: 1,
