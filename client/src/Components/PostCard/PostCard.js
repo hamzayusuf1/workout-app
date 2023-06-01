@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 const PostCard = ({ post }) => {
   return (
-    <div className="border-2 border-workout-primary ">
+    <div className="border-2 border-workout-primary rounded-lg shadow-2xl">
       <figure>
         <img
-          className=" h-72 w-full"
+          className=" h-72 w-full rounded-t-lg"
           src={`${post.image}`}
           alt="gym"
           onClick={console.log(post)}
