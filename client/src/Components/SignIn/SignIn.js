@@ -1,9 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import Auth from "../../Auth/AuthContext";
+
 const SignIn = () => {
-  const handleLogin = (event) => {
-    event.preventDefault();
+  const handleLogin = (data) => {
+    fetch("http://localhost:5007/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          Auth.login(data.token);
+        }
+      });
   };
   return (
     <div className="h-[800px] flex justify-center items-center">

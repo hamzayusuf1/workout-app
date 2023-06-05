@@ -1,11 +1,12 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const { authMiddleware } = require("../utils/auth");
 
 const { signToken } = require("../utils/auth");
 
 //get all users
-router.get("/", async (req, res) => {
+router.get("/", authMiddleware, async (req, res) => {
   return User.find()
     .then((users) => res.json(users))
     .catch((err) => res.status(500).json(err));

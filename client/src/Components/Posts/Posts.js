@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CiDumbbell } from "react-icons/ci";
+import AuthContext from "../../Auth/AuthContext";
 
 import PostCard from "../PostCard/PostCard";
 
@@ -28,10 +29,18 @@ const Posts = () => {
   const pages = Math.ceil(count / size);
 
   useEffect(() => {
+    const token = AuthContext.getToken();
+
+    if (!token) {
+      return () => {};
+    }
+    console.log("token");
+
     fetch("http://localhost:5008/workout/getAllPosts", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
     })
       .then((res) => {

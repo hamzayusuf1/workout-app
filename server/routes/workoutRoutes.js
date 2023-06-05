@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Workout = require("../models/Workout");
 const multer = require("multer");
+const { authMiddleware } = require("../utils/auth");
 
 //add a workout
 router.post("/addPost", (req, res) => {
@@ -16,7 +17,7 @@ router.post("/addPost", (req, res) => {
 });
 
 //get all posts
-router.get("/getAllPosts", (req, res) => {
+router.get("/getAllPosts", authMiddleware, (req, res) => {
   Workout.find()
     .then((result) => {
       res.status(202).send({ result });
