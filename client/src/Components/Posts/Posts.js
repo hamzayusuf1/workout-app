@@ -5,27 +5,46 @@ import PostCard from "../PostCard/PostCard";
 
 const Posts = () => {
   const [posts, setPosts] = useState([
-    {
-      _id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/03/50/81/89/240_F_350818949_lJTfzSTDr79e9Kn55PUVZjN19ct20uGc.jpg",
-      title: "Bench Press",
-      muscleGroupId: "chest",
-      description: "Use barbell to progresivley increase weight on chest",
-    },
-    {
-      _id: 2,
-      image:
-        "https://t4.ftcdn.net/jpg/03/50/81/89/240_F_350818949_lJTfzSTDr79e9Kn55PUVZjN19ct20uGc.jpg",
-      title: "Pull ups",
-      muscleGroupId: "Back",
-      description: "Use you body weight to strengthen your muscles",
-    },
+    // {
+    //   _id: 1,
+    //   image:
+    //     "https://t4.ftcdn.net/jpg/03/50/81/89/240_F_350818949_lJTfzSTDr79e9Kn55PUVZjN19ct20uGc.jpg",
+    //   title: "Bench Press",
+    //   muscleGroupId: "chest",
+    //   description: "Use barbell to progresivley increase weight on chest",
+    // },
+    // {
+    //   _id: 2,
+    //   image:
+    //     "https://t4.ftcdn.net/jpg/03/50/81/89/240_F_350818949_lJTfzSTDr79e9Kn55PUVZjN19ct20uGc.jpg",
+    //   title: "Pull ups",
+    //   muscleGroupId: "Back",
+    //   description: "Use you body weight to strengthen your muscles",
+    // },
   ]);
   const [count, setCount] = useState("");
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(6);
   const pages = Math.ceil(count / size);
+
+  useEffect(() => {
+    fetch("http://localhost:5008/workout/getAllPosts", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setPosts(data?.result);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className=" mt-10">

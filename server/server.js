@@ -3,12 +3,14 @@ const db = require("./config/connection");
 const app = express();
 const PORT = 5008;
 const bcrypt = require("bcrypt");
+const cors = require("cors");
 
 const User = require("./models/User");
 const { signToken } = require("./utils/auth");
 const routes = require("./routes");
 
 //middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(routes);
