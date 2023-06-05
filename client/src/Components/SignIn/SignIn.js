@@ -44,9 +44,9 @@ const SignIn = () => {
           <div></div>
         </form>
         <p style={{ color: "white" }} className="mt-4">
-          New to Our Site!!!{" "}
-          <Link className="text-secondary" to="/Register">
-            Create new Account
+          New to our site?{" "}
+          <Link className="text-warning" to="/Register">
+            Create your new account
           </Link>
         </p>
       </div>

@@ -1,9 +1,30 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    const username = event.target.name.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    const user = { username, email, password };
+    fetch("http://localhost:5008/user/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        navigate("/login");
+        console.log(data);
+      });
   };
 
   return (
@@ -30,7 +51,7 @@ const SignUp = () => {
                 className="block mb-2 text-sm"
                 style={{ color: "white" }}
               >
-                Name
+                Username
               </label>
               <input
                 type="text"
