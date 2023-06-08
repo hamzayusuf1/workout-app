@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import Auth from "../../Auth/AuthContext";
+import { loginUser } from "../../utils/API.js";
+import Auth from "../../utils/AuthContext";
 import "./SignIn.css";
 
 const SignIn = () => {
@@ -16,34 +17,49 @@ const SignIn = () => {
 
   const navigate = useNavigate();
 
-  const handleLogin = (data, event) => {
+  const handleLogin = async (data, event) => {
     event.preventDefault();
-    fetch("http://localhost:5008/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message) {
-          // Auth.login(data?.token);
-          console.log(data.message);
-          setErrorMessage(data.message);
+    // fetch("http://localhost:5008/user/login", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if (data.message) {
+    //       // Auth.login(data?.token);
+    //       console.log(data.message);
+    //       setErrorMessage(data.message);
 
-          return;
+    //       return;
 
-          //TODO!!!!!!-ADD THE ERROR MESSAGE TO SHOW WITH ERROR FROM THE BACKEND
-        }
+    //       //TODO!!!!!!-ADD THE ERROR MESSAGE TO SHOW WITH ERROR FROM THE BACKEND
+    //     }
 
-        console.log(data);
-        localStorage.setItem("id_token", data.token);
-        navigate("/");
-      });
+    //     console.log(data);
+    //     localStorage.setItem("id_token", data.token);
+    //     navigate("/");
+    //   });
     // .catch((err) => {
     //   console.log(err);
     // });
+
+    const response = await loginUser(data);
+
+    // console.log(response.json());
+
+    if (!response.ok) {
+      return await response.json().then((res) => {
+        setErrorMessage(res.message);
+      });
+    }
+
+    const correctData = await response.json();
+    console.log(correctData);
+    Auth.login(correctData.token);
+    navigate("/");
   };
   return (
     <div className="h-[800px] flex justify-center items-center">

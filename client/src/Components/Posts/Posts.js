@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CiDumbbell } from "react-icons/ci";
-import AuthContext from "../../Auth/AuthContext";
+import AuthContext from "../../utils/AuthContext";
 
 import PostCard from "../PostCard/PostCard";
 

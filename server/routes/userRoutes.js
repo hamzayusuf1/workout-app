@@ -45,7 +45,9 @@ router.post("/login", async (req, res) => {
   if (!userExists) {
     return res
       .status(400)
-      .json({ message: "No user with these credentials, please sign up" });
+      .json({
+        message: "No user with these credentials exist, please sign up",
+      });
   }
 
   const correctPw = await userExists.isCorrectPassword(password);
