@@ -62,7 +62,7 @@ const Navbar = () => {
           >
             {" "}
             <li>
-              <Link to={"/Login"}>Sign In</Link>
+              <Link to={"/user/login"}>Sign In</Link>
             </li>
             <li>
               <Link to={"/Register"}>Register</Link>

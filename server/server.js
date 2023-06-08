@@ -4,6 +4,7 @@ const app = express();
 const PORT = 5008;
 const bcrypt = require("bcrypt");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const User = require("./models/User");
 const { signToken } = require("./utils/auth");
@@ -11,8 +12,9 @@ const routes = require("./routes");
 
 //middleware
 app.use(cors());
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(bodyParser.json());
 app.use(routes);
 
 db.once("open", () => {

@@ -28,31 +28,83 @@ const Posts = () => {
   const [size, setSize] = useState(6);
   const pages = Math.ceil(count / size);
 
+  // useEffect(async () => {
+
+  //   // const token = AuthContext.getToken();
+
+  //   // if (!token) {
+  //   //   return () => {};
+  //   // }
+  //   // console.log(token);
+
+  //   var responseClone;
+
+  //   fetch("http://localhost:5008/workout/getAllPosts", {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       // authorization: `Bearer ${token}`,
+  //     },
+  //   })
+  //     .then((res) => {
+  //       responseClone = res.clone();
+  //       return res.json();
+  //     })
+  //     .then(
+  //       (data) => {
+  //         setPosts(data?.result);
+  //         console.log(data);
+  //       },
+  //       function (rejectionReason) {
+  //         // 3
+  //         console.log(
+  //           "Error parsing JSON from response:",
+  //           rejectionReason,
+  //           responseClone
+  //         ); // 4
+  //         responseClone
+  //           .text() // 5
+  //           .then(function (bodyText) {
+  //             console.log(
+  //               "Received the following instead of valid JSON:",
+  //               bodyText
+  //             ); // 6
+  //           });
+  //       }
+  //     )
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    const token = AuthContext.getToken();
+    return async () => {
+      const token = AuthContext.loggedIn() ? AuthContext.getToken() : null;
 
-    if (!token) {
-      return () => {};
-    }
-    console.log("token");
+      if (!token) {
+        return () => {};
+      }
 
-    fetch("http://localhost:5008/workout/getAllPosts", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setPosts(data?.result);
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      const response = await fetch(
+        "http://localhost:5008/workout/getAllPosts",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response);
+
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
+
+      const { result } = await response.json();
+
+      setPosts(result);
+    };
   }, []);
 
   return (

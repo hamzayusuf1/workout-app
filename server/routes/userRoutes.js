@@ -6,7 +6,7 @@ const { authMiddleware } = require("../utils/auth");
 const { signToken } = require("../utils/auth");
 
 //get all users
-router.get("/", authMiddleware, async (req, res) => {
+router.get("/", async (req, res) => {
   return User.find()
     .then((users) => res.json(users))
     .catch((err) => res.status(500).json(err));
@@ -56,7 +56,7 @@ router.post("/login", async (req, res) => {
 
   const token = signToken(userExists);
 
-  return res.status(200).json({ user: userExists, token: token });
+  return res.status(202).json({ user: userExists, token: token });
 });
 
 module.exports = router;
