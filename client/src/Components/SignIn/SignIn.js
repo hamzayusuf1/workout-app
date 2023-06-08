@@ -27,12 +27,19 @@ const SignIn = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data) {
+        if (data.message) {
           // Auth.login(data?.token);
-          console.log(data);
-          localStorage.setItem("id_token", data.token);
-          navigate("/");
+          console.log(data.message);
+          setErrorMessage(data.message);
+
+          return;
+
+          //TODO!!!!!!-ADD THE ERROR MESSAGE TO SHOW WITH ERROR FROM THE BACKEND
         }
+
+        console.log(data);
+        localStorage.setItem("id_token", data.token);
+        navigate("/");
       });
     // .catch((err) => {
     //   console.log(err);
