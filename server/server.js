@@ -1,7 +1,8 @@
 const express = require("express");
 const db = require("./config/connection");
 const app = express();
-const PORT = 5008;
+require("dotenv").config();
+const PORT = process.env.PORT || 5008;
 const bcrypt = require("bcrypt");
 const cors = require("cors");
 const bodyParser = require("body-parser");

@@ -3,108 +3,101 @@ import { CiDumbbell } from "react-icons/ci";
 import AuthContext from "../../utils/AuthContext";
 
 import PostCard from "../PostCard/PostCard";
+import { getAllPosts } from "../../utils/API";
 
 const Posts = () => {
-  const [posts, setPosts] = useState([
-    // {
-    //   _id: 1,
-    //   image:
-    //     "https://t4.ftcdn.net/jpg/03/50/81/89/240_F_350818949_lJTfzSTDr79e9Kn55PUVZjN19ct20uGc.jpg",
-    //   title: "Bench Press",
-    //   muscleGroupId: "chest",
-    //   description: "Use barbell to progresivley increase weight on chest",
-    // },
-    // {
-    //   _id: 2,
-    //   image:
-    //     "https://t4.ftcdn.net/jpg/03/50/81/89/240_F_350818949_lJTfzSTDr79e9Kn55PUVZjN19ct20uGc.jpg",
-    //   title: "Pull ups",
-    //   muscleGroupId: "Back",
-    //   description: "Use you body weight to strengthen your muscles",
-    // },
-  ]);
+  const [posts, setPosts] = useState([]);
   const [count, setCount] = useState("");
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(6);
   const pages = Math.ceil(count / size);
 
+  // useEffect(() => {
+  //   const getPosts = async () => {
+  //     try {
+  //       const token = AuthContext.loggedIn() ? AuthContext.getToken() : 0;
+
+  //       console.log(token);
+
+  //       if (!token) {
+  //         return false;
+  //       }
+
+  //       const response = await errorFetcher({
+  //         url: "http://localhost:5008/workout/getAllPosts",
+  //         options: {
+  //           method: "GET",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             // authorization: `Bearer ${token}`,
+  //           },
+  //         },
+  //       })
+  //         .then((res) => console.log(res))
+  //         .catch((err) => console.log(err));
+
+  //       // const response = await fetch(
+  //       //   "http://localhost:5008/workout/getAllPosts",
+  //       //   {
+  //       //     method: "GET",
+  //       //     headers: {
+  //       //       "Content-Type": "application/json",
+  //       //       authorization: `Bearer ${token}`,
+  //       //     },
+  //       //   }
+  //       // );
+
+  //       console.log(response);
+
+  //       if (!response.ok) {
+  //         throw new Error("Something went wrong");
+  //       }
+
+  //       const { result } = await response.json();
+
+  //       setPosts(result);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
+
+  //   getPosts();
+  // }, []);
+
   // useEffect(async () => {
-
-  //   // const token = AuthContext.getToken();
-
-  //   // if (!token) {
-  //   //   return () => {};
-  //   // }
-  //   // console.log(token);
-
-  //   var responseClone;
-
-  //   fetch("http://localhost:5008/workout/getAllPosts", {
+  //   const response = await fetch("http://localhost:5008/workout/getAllPosts", {
   //     method: "GET",
   //     headers: {
   //       "Content-Type": "application/json",
   //       // authorization: `Bearer ${token}`,
   //     },
-  //   })
-  //     .then((res) => {
-  //       responseClone = res.clone();
-  //       return res.json();
-  //     })
-  //     .then(
-  //       (data) => {
-  //         setPosts(data?.result);
-  //         console.log(data);
-  //       },
-  //       function (rejectionReason) {
-  //         // 3
-  //         console.log(
-  //           "Error parsing JSON from response:",
-  //           rejectionReason,
-  //           responseClone
-  //         ); // 4
-  //         responseClone
-  //           .text() // 5
-  //           .then(function (bodyText) {
-  //             console.log(
-  //               "Received the following instead of valid JSON:",
-  //               bodyText
-  //             ); // 6
-  //           });
-  //       }
-  //     )
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  //   });
+
+  //   if (!response.ok) {
+  //     throw new Error("something went wrong!");
+  //   }
+
+  //   const data = await response.json();
+  //   setPosts(data);
+  //   return () => {};
+  // });
 
   useEffect(() => {
-    return async () => {
-      const token = AuthContext.loggedIn() ? AuthContext.getToken() : null;
-
-      if (!token) {
-        return () => {};
-      }
-
-      const response = await fetch(
-        "http://localhost:5008/workout/getAllPosts",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      console.log(response);
-
-      if (!response.ok) {
-        throw new Error("Something went wrong");
-      }
-
-      const { result } = await response.json();
-
-      setPosts(result);
+    const getPosts = async () => {
+      const url = `http://localhost:5008/workout/getAllPosts`;
+      // const token = AuthContext.loggedIn() ? AuthContext.getToken() : 0;
+      // console.log(token);
+      fetch(url, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setPosts(data?.result);
+        });
     };
+    getPosts();
   }, []);
 
   return (

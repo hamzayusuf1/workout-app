@@ -1,7 +1,8 @@
 import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
 import React from "react";
+
+import Auth from "../../utils/AuthContext";
 
 const Navbar = () => {
   const menuItems = (
@@ -61,20 +62,34 @@ const Navbar = () => {
             className="mt-3 p-2 shadow menu menu-compact dropdown-content  rounded-box w-52"
           >
             {" "}
-            <li>
-              <Link to={"/user/login"}>Sign In</Link>
-            </li>
-            <li>
-              <Link to={"/Register"}>Register</Link>
-            </li>
-            <>
-              <li>
-                <Link to={"/dashboard"}>Dashboard</Link>
-              </li>
-              <li>
-                <a href="#"></a>
-              </li>
-            </>
+            {Auth.loggedIn() ? (
+              <>
+                {" "}
+                <li>
+                  <Link to={"/dashboard"}>Dashboard</Link>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    onClick={() => {
+                      Auth.logout();
+                    }}
+                  >
+                    Logout
+                  </a>
+                </li>{" "}
+              </>
+            ) : (
+              <>
+                {" "}
+                <li>
+                  <Link to={"/user/login"}>Sign In</Link>
+                </li>
+                <li>
+                  <Link to={"/Register"}>Register</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

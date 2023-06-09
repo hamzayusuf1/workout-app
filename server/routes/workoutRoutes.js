@@ -17,7 +17,7 @@ router.post("/addPost", (req, res) => {
 });
 
 //get all posts
-router.get("/getAllPosts", authMiddleware, (req, res) => {
+router.get("/getAllPosts", (req, res) => {
   Workout.find()
     .then((result) => {
       res.status(202).send({ result });

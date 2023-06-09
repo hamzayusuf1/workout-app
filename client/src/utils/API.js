@@ -7,3 +7,14 @@ export const loginUser = (userData) => {
     body: JSON.stringify(userData),
   });
 };
+
+export const getAllPosts = () => {
+  return (
+    fetch("/workout/getAllPosts"),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+};
