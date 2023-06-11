@@ -8,6 +8,16 @@ export const loginUser = (userData) => {
   });
 };
 
+export const signupUser = (userData) => {
+  return fetch("/user/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+};
+
 export const getAllPosts = () => {
   return (
     fetch("/workout/getAllPosts"),

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const PostCard = ({ post }) => {
   return (
-    <div className="border-2 border-workout-primary rounded-lg shadow-2xl">
+    <div className="border-2 border-workout-primary rounded-lg shadow-2xl m-6">
       <figure>
         <img
           className=" h-72 w-full rounded-t-lg"

@@ -6,22 +6,30 @@ export const useAppContext = () => {
   return useContext(AppContext);
 };
 
+const initialState = {
+  category: [],
+};
+
+export const addPostReducer = (state, action) => {
+  switch (action.type) {
+    case "CHANGE_CATEGORY":
+      return {
+        ...state,
+        category: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
 export const AppContextProvider = ({ children }) => {
-  const [userData, setUserData] = useState({
-    firstName: "Hamza",
-    lastName: "Yusuf",
-    email: "hamzayusuf26@outlook.com",
-    height: "6'2",
-    weight: "75kg",
-  });
+  const [userData, setUserData] = useState({});
+
+  console.log(userData);
 
   return (
-    <AppContext.Provider
-      value={{
-        userData,
-        setUserData,
-      }}
-    >
+    <AppContext.Provider value={{ userData, setUserData }}>
       {children}
     </AppContext.Provider>
   );

@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 
 //User signup
 router.post("/signup", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
 
   console.log(User);
 
@@ -28,7 +28,8 @@ router.post("/signup", async (req, res) => {
   const newUser = await User.create({
     email: email,
     password: hashedPassword,
-    username: username,
+    firstName: firstName,
+    lastName: lastName,
   });
 
   const token = signToken(newUser);
@@ -43,11 +44,9 @@ router.post("/login", async (req, res) => {
   const userExists = await User.findOne({ email: email });
 
   if (!userExists) {
-    return res
-      .status(400)
-      .json({
-        message: "No user with these credentials exist, please sign up",
-      });
+    return res.status(400).json({
+      message: "No user with these credentials exist, please sign up",
+    });
   }
 
   const correctPw = await userExists.isCorrectPassword(password);

@@ -5,8 +5,11 @@ import { useForm } from "react-hook-form";
 import { loginUser } from "../../utils/API.js";
 import Auth from "../../utils/AuthContext";
 import "./SignIn.css";
+import { useAppContext } from "../../State/AppContext.js";
 
 const SignIn = () => {
+  const { userData, setUserData } = useAppContext();
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const {
@@ -46,20 +49,25 @@ const SignIn = () => {
     //   console.log(err);
     // });
 
-    const response = await loginUser(data);
-
     // console.log(response.json());
 
-    if (!response.ok) {
-      return await response.json().then((res) => {
-        setErrorMessage(res.message);
-      });
-    }
+    try {
+      const response = await loginUser(data);
 
-    const correctData = await response.json();
-    console.log(correctData);
-    Auth.login(correctData.token);
-    navigate("/");
+      if (!response.ok) {
+        return await response.json().then((res) => {
+          setErrorMessage(res.message);
+        });
+      }
+
+      const correctData = await response.json();
+      console.log(userData);
+      Auth.login(correctData.token);
+      setUserData(correctData.user);
+      window.location.assign("/");
+    } catch (error) {}
+
+    // navigate("/");
   };
   return (
     <div className="h-[800px] flex justify-center items-center">

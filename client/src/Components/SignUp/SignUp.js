@@ -1,30 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
+import { useAppContext } from "../../State/AppContext";
+import { signupUser } from "../../utils/API";
+import Auth from "../../utils/AuthContext";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (event) => {
+  const { userData, setUserData } = useAppContext();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const handleSignup = async (data, event) => {
     event.preventDefault();
-    const username = event.target.name.value;
-    const email = event.target.email.value;
-    const password = event.target.password.value;
 
-    const user = { username, email, password };
+    console.log(data);
+
     fetch("http://localhost:5008/user/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(data),
     })
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        navigate("/login");
-        console.log(data);
+        setUserData(data.user);
+        Auth.login(data.token);
       });
+    // navigate("/");
   };
 
   return (
@@ -39,24 +52,48 @@ const SignUp = () => {
           </p>
         </div>
         <form
-          onSubmit={handleSubmit}
-          noValidate=""
-          action=""
+          onSubmit={handleSubmit(handleSignup)}
           className="space-y-12 ng-untouched ng-pristine ng-valid"
         >
           <div className="space-y-4">
             <div>
               <label
-                htmlFor="email"
+                htmlFor="name"
                 className="block mb-2 text-sm"
                 style={{ color: "white" }}
               >
-                Username
+                First name
               </label>
               <input
                 type="text"
-                name="name"
-                id="name"
+                {...register("firstName", {
+                  required: "First name is required",
+                })}
+                // name="name"
+                // id="name"
+                placeholder="Enter Your Name Here"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900"
+                // data-temp-mail-org="0"
+              />
+              {/* <span className="error text-sm text-red-700">
+                {errors?.password?.message}
+              </span> */}
+            </div>
+            <div>
+              <label
+                htmlFor="name"
+                className="block mb-2 text-sm"
+                style={{ color: "white" }}
+              >
+                Last name
+              </label>
+              <input
+                type="text"
+                {...register("lastName", {
+                  required: "You need to provide your last name",
+                })}
+                // name="name"
+                // id="name"
                 placeholder="Enter Your Name Here"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900"
                 data-temp-mail-org="0"
@@ -72,13 +109,14 @@ const SignUp = () => {
                 Email address
               </label>
               <input
-                required
                 type="email"
-                name="email"
-                id="email"
+                {...register("email", {
+                  required: "You must provide an email",
+                })}
+                // name="email"
+                // id="email"
                 placeholder="Enter Your Email Here"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900"
-                data-temp-mail-org="0"
               />
             </div>
             <div>
@@ -94,6 +132,13 @@ const SignUp = () => {
               <input
                 required
                 type="password"
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be longer than 6 characters",
+                  },
+                })}
                 name="password"
                 id="password"
                 placeholder="*******"
@@ -103,8 +148,11 @@ const SignUp = () => {
           </div>
           <div className="space-y-2">
             <div>
-              <button className="w-full px-8 py-3 font-semibold rounded-md bg-workout-primary text-neutral-50">
-                {" "}
+              <button
+                className="w-full px-8 py-3 font-semibold rounded-md bg-workout-primary text-neutral-50 hover:bg-yellow-300 hover:border-yellow-700 border-transparent border-2"
+                value="signup"
+                type="submit"
+              >
                 Sign Up
               </button>
             </div>
