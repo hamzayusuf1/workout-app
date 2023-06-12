@@ -39,3 +39,13 @@ export const addPost = (postData) => {
     body: postData,
   });
 };
+
+export const addCateogryReq = (category) => {
+  return fetch("/workout/addCategory", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ category }),
+  });
+};

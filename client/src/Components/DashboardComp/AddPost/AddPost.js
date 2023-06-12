@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
@@ -6,7 +6,16 @@ import { useAppContext } from "../../../State/AppContext";
 import { addPost } from "../../../utils/API";
 
 const AddPost = () => {
-  const { userData } = useAppContext();
+  const { userData, state, dispatch } = useAppContext();
+
+  useEffect(() => {
+    fetch("http://localhost:5008/workout/getAllCategories")
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res.result);
+      });
+    // .then((categories) => dispatch({ type: "INPUT", payload: categories }));
+  }, []);
 
   const {
     register,

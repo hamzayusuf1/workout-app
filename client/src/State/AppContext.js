@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useReducer } from "react";
 
 const AppContext = createContext();
 
@@ -25,9 +25,10 @@ export const addPostReducer = (state, action) => {
 
 export const AppContextProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
+  const [state, dispatch] = useReducer(addPostReducer, initialState);
 
   return (
-    <AppContext.Provider value={{ userData, setUserData }}>
+    <AppContext.Provider value={{ userData, setUserData, state, dispatch }}>
       {children}
     </AppContext.Provider>
   );

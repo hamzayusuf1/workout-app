@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Workout = require("../models/Workout");
+const Category = require("../models/Category");
 const multer = require("multer");
 const { authMiddleware } = require("../utils/auth");
 
@@ -32,6 +33,37 @@ router.get("/getAllPosts", (req, res) => {
 //save a workout
 router.post("/saveWorkout", (req, res) => {
   console.log(req);
+});
+
+//add categories
+router.post("/addCategory", async (req, res) => {
+  const categoryName = req.body.categoryName;
+  console.log(categoryName);
+
+  const categoryExists = await Category.findOne({
+    category: categoryName,
+  });
+
+  console.log(categoryExists);
+  if (categoryExists) {
+    return res.status(401).json({
+      message: "Category already exists",
+    });
+  }
+
+  const newCategory = await Category.create(req.body);
+  return res.status(201).json(newCategory);
+});
+
+//get all the categories
+router.get("/getAllCategories", (req, res) => {
+  Category.find()
+    .then((result) => {
+      res.status(201).send({ result });
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 module.exports = router;
