@@ -21,23 +21,28 @@ const SignUp = () => {
   const handleSignup = async (data, event) => {
     event.preventDefault();
 
-    console.log(data);
-
-    fetch("http://localhost:5008/user/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => {
-        return res.json();
+    try {
+      fetch("http://localhost:5008/user/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       })
-      .then((data) => {
-        setUserData(data.user);
-        Auth.login(data.token);
-      });
-    // navigate("/");
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          if (data.message) {
+            return setErrorMessage(data.message);
+          }
+          Auth.login(data.token);
+          setUserData(data.user);
+          navigate("/");
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -69,15 +74,13 @@ const SignUp = () => {
                 {...register("firstName", {
                   required: "First name is required",
                 })}
-                // name="name"
-                // id="name"
                 placeholder="Enter Your Name Here"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900"
                 // data-temp-mail-org="0"
               />
-              {/* <span className="error text-sm text-red-700">
-                {errors?.password?.message}
-              </span> */}
+              <span className="text-sm text-error">
+                {errors?.firstName?.message}
+              </span>
             </div>
             <div>
               <label
@@ -93,11 +96,14 @@ const SignUp = () => {
                   required: "You need to provide your last name",
                 })}
                 // name="name"
-                // id="name"
+
                 placeholder="Enter Your Name Here"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900"
                 data-temp-mail-org="0"
               />
+              <span className="text-sm text-error">
+                {errors?.lastName?.message}
+              </span>
             </div>
 
             <div>
@@ -113,11 +119,12 @@ const SignUp = () => {
                 {...register("email", {
                   required: "You must provide an email",
                 })}
-                // name="email"
-                // id="email"
                 placeholder="Enter Your Email Here"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900"
               />
+              <span className="text-sm text-error">
+                {errors?.email?.message}
+              </span>
             </div>
             <div>
               <div className="flex justify-between mb-2">
@@ -144,6 +151,9 @@ const SignUp = () => {
                 placeholder="*******"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 bg-gray-200 focus:outline-green-500 text-gray-900"
               />
+              <span className="text-sm text-error">
+                {errors?.password?.message}
+              </span>
             </div>
           </div>
           <div className="space-y-2">
@@ -169,10 +179,12 @@ const SignUp = () => {
           style={{ color: "white" }}
         >
           Already have an account yet?{" "}
-          <Link to="/login" className="hover:underline text-gray-600">
+          <Link to="/user/login" className="hover:underline text-gray-600">
             Sign In
           </Link>
-          .
+          {errorMessage && (
+            <h4 className="text-error font-bold text-xl">{errorMessage}</h4>
+          )}
         </p>
       </div>
     </div>

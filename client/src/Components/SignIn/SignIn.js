@@ -20,6 +20,8 @@ const SignIn = () => {
 
   const navigate = useNavigate();
 
+  const handleToken = () => {};
+
   const handleLogin = async (data, event) => {
     event.preventDefault();
     // fetch("http://localhost:5008/user/login", {
@@ -61,10 +63,10 @@ const SignIn = () => {
       }
 
       const correctData = await response.json();
-      console.log(userData);
-      Auth.login(correctData.token);
+
       setUserData(correctData.user);
-      window.location.assign("/");
+      Auth.login(correctData.token);
+      navigate("/");
     } catch (error) {}
 
     // navigate("/");
@@ -131,7 +133,7 @@ const SignIn = () => {
         </form>
         <p style={{ color: "white" }} className="mt-4">
           New to our site?{" "}
-          <Link className="text-warning" to="/Register">
+          <Link className="text-warning" to="/user/register">
             Create your new account
           </Link>
           {errorMessage && <h4 className="error">{errorMessage}</h4>}

@@ -9,7 +9,6 @@ const PostCard = ({ post }) => {
           className=" h-72 w-full rounded-t-lg"
           src={`${post.image}`}
           alt="gym"
-          onClick={console.log(post)}
         />
       </figure>
       <div className="card-body">

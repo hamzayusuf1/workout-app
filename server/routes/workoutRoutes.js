@@ -7,6 +7,8 @@ const { authMiddleware } = require("../utils/auth");
 router.post("/addPost", (req, res) => {
   const date = new Date();
 
+  console.log(req.body);
+
   Workout.create({ ...req.body, postDate: date })
     .then((workout) => {
       res.status(201).json(workout);

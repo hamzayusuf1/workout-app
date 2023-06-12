@@ -20,7 +20,6 @@ const Dashboard = () => {
                     src={"/images/user.png"}
                     alt="Avatar user"
                     className="w-10 md:w-16 rounded-full mx-auto"
-                    onClick={console.log(userData)}
                   />
                 </Link>
                 <div>

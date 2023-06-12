@@ -1,15 +1,13 @@
 const { Schema, model } = require("mongoose");
-const { fileURLToPath } = require("url");
 
 const workoutSchema = new Schema({
-  username: {
+  firstName: {
     type: String,
     required: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true,
     match: [/.+@.+\..+/, "Must match an email address!"],
   },
   title: {
@@ -22,10 +20,11 @@ const workoutSchema = new Schema({
   },
   muscleGroup: {
     type: String,
-    required: true,
+    // required: true,
   },
   image: {
     type: String,
+    // required: true,
   },
   postDate: {
     type: String,

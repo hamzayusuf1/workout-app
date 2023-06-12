@@ -1,13 +1,53 @@
 import React from "react";
-import { useAppContext } from "../../../State/AppContext";
-
+import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+
+import { useAppContext } from "../../../State/AppContext";
+import { addPost } from "../../../utils/API";
 
 const AddPost = () => {
   const { userData } = useAppContext();
 
-  const handleSubmit = async () => {
-    return toast.success("Add post successfully");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const handleUpload = async (data, event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("firstName", data.firstName);
+    formData.append("email", userData?.email);
+    formData.append("title", data.title);
+    formData.append("description", data.description);
+
+    try {
+      console.log(Object.fromEntries(formData));
+
+      var object = {};
+      formData.forEach(function (value, key) {
+        object[key] = value;
+      });
+      var json = JSON.stringify(object);
+      console.log(json);
+
+      const response = await addPost(json);
+      console.log(response);
+      if (!response.ok) {
+        return await response.json().then((res) => {
+          // setErrorMessage(res.message);
+          console.log(res.statusText);
+        });
+      }
+      const newWorkout = await response.json();
+
+      // return toast.success("Add post successfully");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -19,7 +59,7 @@ const AddPost = () => {
         Add Post
       </h1>
 
-      <form onSubmit={handleSubmit} className="w-full">
+      <form onSubmit={handleSubmit(handleUpload)} className="w-full">
         <div className="form-control w-full ">
           <label className="label">
             <span className="label-text" style={{ color: "white" }}>
@@ -31,11 +71,15 @@ const AddPost = () => {
             style={{ color: "black" }}
             type="text"
             name="userName"
+            {...register("firstName", {
+              required: "A Name is required",
+            })}
             placeholder="Enter Your Name"
-            defaultValue={userData.firstName}
-            readOnly
             className="input input-bordered w-full "
           />
+          <span className="text-sm text-error">
+            {errors?.firstName?.message}
+          </span>
         </div>
         <div className="form-control w-full ">
           <label className="label">
@@ -47,10 +91,15 @@ const AddPost = () => {
           <input
             style={{ color: "black" }}
             type="text"
+            {...register("title", {
+              required: "A title is required",
+            })}
             name="title"
             placeholder="Post Title"
             className="input input-bordered w-full "
           />
+
+          <span className="text-sm text-error">{errors?.title?.message}</span>
         </div>
         <div className="form-control w-full ">
           <label className="label">
@@ -61,11 +110,17 @@ const AddPost = () => {
           <textarea
             style={{ color: "black" }}
             name="description"
+            {...register("description", {
+              required: "A description is required",
+            })}
             cols="30"
             rows="10"
             placeholder="Post Description"
             className="input input-bordered w-full "
           ></textarea>
+          <span className="text-sm text-error">
+            {errors?.description?.message}
+          </span>
         </div>
         <div className="form-control w-full ">
           <label className="label">

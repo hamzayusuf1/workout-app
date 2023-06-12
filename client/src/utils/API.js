@@ -28,3 +28,14 @@ export const getAllPosts = () => {
     }
   );
 };
+
+export const addPost = (postData) => {
+  return fetch("/workout/addPost", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      // "Content-Length": postData.getLengthSync(),
+    },
+    body: postData,
+  });
+};

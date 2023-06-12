@@ -26,8 +26,6 @@ export const addPostReducer = (state, action) => {
 export const AppContextProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
 
-  console.log(userData);
-
   return (
     <AppContext.Provider value={{ userData, setUserData }}>
       {children}
