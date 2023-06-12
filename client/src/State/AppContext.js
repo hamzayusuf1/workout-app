@@ -7,7 +7,7 @@ export const useAppContext = () => {
 };
 
 const initialState = {
-  category: [],
+  category: ["back"],
 };
 
 export const addPostReducer = (state, action) => {

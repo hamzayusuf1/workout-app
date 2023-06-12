@@ -12,9 +12,13 @@ const AddPost = () => {
     fetch("http://localhost:5008/workout/getAllCategories")
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.result);
+        const arr = res.result.map((obj) => obj.category);
+
+        dispatch({
+          type: "CHANGE_CATEGORY",
+          payload: arr,
+        });
       });
-    // .then((categories) => dispatch({ type: "INPUT", payload: categories }));
   }, []);
 
   const {
@@ -146,7 +150,18 @@ const AddPost = () => {
             className="input input-bordered w-full py-2 "
           />
         </div>
-
+        <span className="font-bold text-lg" style={{ color: "white" }}>
+          Workout Category :{" "}
+        </span>{" "}
+        <select
+          name="muscleGroupId"
+          className="my-10 border p-2 w-1/2 border-lime-800 rounded-lg"
+          style={{ color: "black" }}
+        >
+          {state?.category.map((item) => (
+            <option value={item}>{item}</option>
+          ))}
+        </select>
         <input className="btn btn-accent w-full mt-6" type="submit" />
       </form>
     </div>
