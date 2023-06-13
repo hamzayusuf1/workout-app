@@ -4,6 +4,7 @@ const Category = require("../models/Category");
 const multer = require("multer");
 const { authMiddleware } = require("../utils/auth");
 const User = require("../models/User");
+const SavedWorkouts = require("../models/SavedWorkouts");
 
 //add a workout
 router.post("/addPost", (req, res) => {
@@ -57,8 +58,20 @@ router.get("/getPosts/:id", async (req, res) => {
 });
 
 //save a workout
-router.post("/saveWorkout", (req, res) => {
-  console.log(req);
+router.post("/saveWorkout", async (req, res) => {
+  const { _id } = req.body;
+
+  console.log(req.body);
+
+  const alreadySaved = await SavedWorkouts.findOne({ _id: _id });
+
+  if (alreadySaved) {
+    return res.status(400).json({ message: "Workout has already been saved" });
+  }
+
+  const newlySaved = SavedWorkouts.create(req.body);
+
+  return res.status(201).json(newlySaved);
 });
 
 //add categories

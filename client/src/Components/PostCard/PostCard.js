@@ -1,7 +1,43 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+
+import { useAppContext } from "../../State/AppContext";
 
 const PostCard = ({ post }) => {
+  const { userData } = useAppContext();
+
+  const { email, username } = userData;
+
+  const handleSaveWorkout = (e) => {
+    e.preventDefault();
+
+    const { _id, title, description, muscleGroup } = post;
+
+    fetch("http://localhost:5008/workout/saveWorkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        _id,
+        username,
+        email,
+        title,
+        description,
+        muscleGroup,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message) {
+          toast.error(`${data.message}`);
+        } else {
+          toast.success("Workout Saved Successfully");
+        }
+      });
+  };
+
   return (
     <div className="border-2 border-workout-primary rounded-lg shadow-2xl m-6">
       <figure>
@@ -28,9 +64,14 @@ const PostCard = ({ post }) => {
               View Details
             </button>
           </Link>
-          <button className=" p-4 badge bg-workout-primary text-workout-secondary font-bold">
-            Save Workout
-          </button>
+          {userData && (
+            <button
+              className=" p-4 badge bg-workout-primary text-workout-secondary font-bold"
+              onClick={handleSaveWorkout}
+            >
+              Save Workout
+            </button>
+          )}
         </div>
       </div>
     </div>
