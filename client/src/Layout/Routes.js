@@ -26,7 +26,12 @@ const router = createBrowserRouter([
         path: "/postDetails/:id",
         element: <PostDetails></PostDetails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5008/workout/${params?.id}`),
+          fetch(`http://localhost:5008/workout/getPosts/${params?.id}`).then(
+            (data) => {
+              console.log(data);
+              return data;
+            }
+          ),
       },
 
       {

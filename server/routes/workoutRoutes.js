@@ -48,10 +48,12 @@ router.get("/getAllPosts", (req, res) => {
 });
 
 //get single post
-router.get("/:id", async (req, res) => {
+router.get("/getPosts/:id", async (req, res) => {
   const id = req.params.id;
+
   const result = await Workout.findOne({ _id: id });
-  res.status(200).json(result);
+  console.log(result);
+  return res.status(200).json(result);
 });
 
 //save a workout
@@ -80,8 +82,8 @@ router.post("/addCategory", async (req, res) => {
 });
 
 //get all the categories
-router.get("/getAllCategories", (req, res) => {
-  Category.find()
+router.get("/getAllCategories", async (req, res) => {
+  await Category.find()
     .then((result) => {
       res.status(201).send({ result });
     })
