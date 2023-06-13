@@ -61,7 +61,7 @@ router.get("/getPosts/:id", async (req, res) => {
 router.post("/saveWorkout", async (req, res) => {
   const { _id } = req.body;
 
-  console.log(req.body);
+  // console.log(req.body);
 
   const alreadySaved = await SavedWorkouts.findOne({ _id: _id });
 
