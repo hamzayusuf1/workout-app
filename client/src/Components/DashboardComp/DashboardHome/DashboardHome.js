@@ -1,11 +1,12 @@
-import React from 'react';
+import React from "react";
+
+import { useAppContext } from "../../../State/AppContext";
 
 const DashboardHome = () => {
-    return (
-        <div>
-            Welcome To Our Dashboard
-        </div>
-    );
+  const { userData } = useAppContext();
+  return (
+    <div>{`Welcome To Our Dashboard, ${userData.firstName}  ${userData.lastName}`}</div>
+  );
 };
 
 export default DashboardHome;

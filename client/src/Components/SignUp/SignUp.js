@@ -20,6 +20,7 @@ const SignUp = () => {
 
   const handleSignup = async (data, event) => {
     event.preventDefault();
+    console.log(data);
 
     try {
       fetch("http://localhost:5008/user/signup", {
@@ -67,33 +68,12 @@ const SignUp = () => {
                 className="block mb-2 text-sm"
                 style={{ color: "white" }}
               >
-                First name
+                Username
               </label>
               <input
                 type="text"
-                {...register("firstName", {
-                  required: "First name is required",
-                })}
-                placeholder="Enter Your Name Here"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900"
-                // data-temp-mail-org="0"
-              />
-              <span className="text-sm text-error">
-                {errors?.firstName?.message}
-              </span>
-            </div>
-            <div>
-              <label
-                htmlFor="name"
-                className="block mb-2 text-sm"
-                style={{ color: "white" }}
-              >
-                Last name
-              </label>
-              <input
-                type="text"
-                {...register("lastName", {
-                  required: "You need to provide your last name",
+                {...register("username", {
+                  required: "You need to provide a username",
                 })}
                 // name="name"
 
@@ -104,6 +84,55 @@ const SignUp = () => {
               <span className="text-sm text-error">
                 {errors?.lastName?.message}
               </span>
+            </div>
+
+            <div className="flex gap-5">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="mb-2 text-sm"
+                  style={{ color: "white" }}
+                >
+                  First name
+                </label>
+                <input
+                  type="text"
+                  {...register("firstName", {
+                    required: "First name is required",
+                  })}
+                  placeholder="Enter Your Name"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900"
+                  // data-temp-mail-org="0"
+                />
+
+                <span className="text-sm text-error">
+                  {errors?.firstName?.message}
+                </span>
+              </div>
+              <div>
+                <label
+                  htmlFor="name"
+                  className="mb-2 text-sm"
+                  style={{ color: "white" }}
+                >
+                  Last name
+                </label>
+                <input
+                  type="text"
+                  {...register("lastName", {
+                    required: "You need to provide your last name",
+                  })}
+                  // name="name"
+
+                  placeholder="Enter Your Name"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-green-500 bg-gray-200 text-gray-900"
+                  data-temp-mail-org="0"
+                />
+
+                <span className="text-sm text-error">
+                  {errors?.lastName?.message}
+                </span>
+              </div>
             </div>
 
             <div>

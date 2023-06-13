@@ -54,7 +54,7 @@ const AddPost = () => {
       if (!response.ok) {
         return await response.json().then((res) => {
           // setErrorMessage(res.message);
-          console.log(res.statusText);
+          console.log(res.message);
         });
       }
       const newWorkout = await response.json();

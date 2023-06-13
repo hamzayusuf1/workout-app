@@ -20,7 +20,7 @@ const workoutSchema = new Schema({
   },
   muscleGroup: {
     type: String,
-    // required: true,
+    required: true,
   },
   image: {
     type: String,

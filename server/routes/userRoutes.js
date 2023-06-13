@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 
 //User signup
 router.post("/signup", async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password, user } = req.body;
 
   console.log(User);
 
@@ -26,10 +26,8 @@ router.post("/signup", async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const newUser = await User.create({
-    email: email,
+    ...req.body,
     password: hashedPassword,
-    firstName: firstName,
-    lastName: lastName,
   });
 
   const token = signToken(newUser);
