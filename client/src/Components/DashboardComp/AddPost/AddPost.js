@@ -33,8 +33,9 @@ const AddPost = () => {
     console.log(data);
 
     const formData = new FormData();
-    formData.append("firstName", data.firstName);
+    formData.append("username", userData?.username);
     formData.append("email", userData?.email);
+    formData.append("firstName", data.firstName);
     formData.append("title", data.title);
     formData.append("description", data.description);
     formData.append("muscleGroup", data.muscleGroup);
@@ -87,14 +88,14 @@ const AddPost = () => {
             style={{ color: "black" }}
             type="text"
             name="userName"
-            {...register("firstName", {
-              required: "A Name is required",
+            {...register("username", {
+              required: "A username is required",
             })}
-            placeholder="Enter Your Name"
+            placeholder="Enter Your username"
             className="input input-bordered w-full "
           />
           <span className="text-sm text-error">
-            {errors?.firstName?.message}
+            {errors?.username?.message}
           </span>
         </div>
         <div className="form-control w-full ">

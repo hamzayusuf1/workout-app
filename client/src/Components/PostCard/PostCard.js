@@ -18,7 +18,12 @@ const PostCard = ({ post }) => {
         {/* <p>{Time}</p>
         <p>{Date}</p> */}
         <div className="w-full mt-6">
-          <Link to={`/postDetails/${post._id}`}>
+          <Link
+            onClick={() => {
+              console.log(post);
+            }}
+            to={`/postDetails/${post._id}`}
+          >
             <button className=" p-4 me-4 badge bg-workout-primary text-workout-secondary font-bold">
               View Details
             </button>

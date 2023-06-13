@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const workoutSchema = new Schema({
-  firstName: {
+  username: {
     type: String,
     required: true,
   },

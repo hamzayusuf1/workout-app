@@ -26,9 +26,7 @@ const Dashboard = () => {
                   <h2 className="font-medium text-xs md:text-sm text-center text-teal-500">
                     {userData.username}
                   </h2>
-                  <p className="text-xs text-gray-500 text-center">
-                    {`Welcome ${userData.firstName}  ${userData.lastName}`}
-                  </p>
+
                   <p className="text-xs text-gray-500 text-center">
                     {userData.email}
                   </p>
