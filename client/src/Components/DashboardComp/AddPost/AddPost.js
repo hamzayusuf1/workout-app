@@ -30,11 +30,14 @@ const AddPost = () => {
   const handleUpload = async (data, event) => {
     event.preventDefault();
 
+    console.log(data);
+
     const formData = new FormData();
     formData.append("firstName", data.firstName);
     formData.append("email", userData?.email);
     formData.append("title", data.title);
     formData.append("description", data.description);
+    formData.append("muscleGroup", data.muscleGroup);
 
     try {
       console.log(Object.fromEntries(formData));
@@ -56,7 +59,7 @@ const AddPost = () => {
       }
       const newWorkout = await response.json();
 
-      // return toast.success("Add post successfully");
+      return toast.success("Add post successfully");
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -150,18 +153,24 @@ const AddPost = () => {
             className="input input-bordered w-full py-2 "
           />
         </div>
-        <span className="font-bold text-lg" style={{ color: "white" }}>
-          Workout Category :{" "}
-        </span>{" "}
-        <select
-          name="muscleGroupId"
-          className="my-10 border p-2 w-1/2 border-lime-800 rounded-lg"
-          style={{ color: "black" }}
-        >
-          {state?.category.map((item) => (
-            <option value={item}>{item}</option>
-          ))}
-        </select>
+        <div className="block">
+          <span className="font-bold text-lg" style={{ color: "white" }}>
+            Workout Category :{" "}
+          </span>{" "}
+          <select
+            name="muscleGroup"
+            className="my-10 border p-2 w-1/2 border-lime-800 rounded-lg"
+            style={{ color: "black" }}
+            {...register("muscleGroup", { required: true })}
+          >
+            {state?.category.map((item) => (
+              <option value={item}>{item}</option>
+            ))}
+          </select>
+        </div>
+        <span className="text-sm text-error">
+          {errors?.muscleGroup?.message}
+        </span>
         <input className="btn btn-accent w-full mt-6" type="submit" />
       </form>
     </div>
