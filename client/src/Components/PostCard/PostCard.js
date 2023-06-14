@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
+import Auth from "../../utils/AuthContext";
+
 import { useAppContext } from "../../State/AppContext";
 
 const PostCard = ({ post }) => {
@@ -9,14 +11,21 @@ const PostCard = ({ post }) => {
 
   const { email, username } = userData;
 
-  const handleSaveWorkout = (e) => {
+  const handleSaveWorkout = async (e) => {
     e.preventDefault();
+
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
 
     const { _id, title, description, muscleGroup } = post;
 
-    fetch("http://localhost:5008/workout/saveWorkout", {
+    const response = await fetch("http://localhost:5008/workout/saveWorkout", {
       method: "POST",
       headers: {
+        authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoiaGFtemF5dXN1ZjI2IiwiZW1haWwiOiJoYW16YUB5dXN1Zi5jb20iLCJfaWQiOiI2NDg4NTgzOWQ2ZGI2NTAwMTllODZhM2IifSwiaWF0IjoxNjg2Njc5MTE4LCJleHAiOjE2ODY2ODYzMTh9.V9CpTnyWqODXI2YwbZE9Mi1kysAIMY5RPf2VpChaPnw"}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -27,15 +36,15 @@ const PostCard = ({ post }) => {
         description,
         muscleGroup,
       }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message) {
-          toast.error(`${data.message}`);
-        } else {
-          toast.success("Workout Saved Successfully");
-        }
+    });
+
+    if (!response.ok) {
+      return await response.json().then((res) => {
+        console.log(res.message);
+        toast.error(`${res.message}`);
       });
+    }
+    toast.success("Workout Saved Successfully");
   };
 
   return (
@@ -64,7 +73,7 @@ const PostCard = ({ post }) => {
               View Details
             </button>
           </Link>
-          {userData && (
+          {userData.username && (
             <button
               className=" p-4 badge bg-workout-primary text-workout-secondary font-bold"
               onClick={handleSaveWorkout}

@@ -58,7 +58,7 @@ router.get("/getPosts/:id", async (req, res) => {
 });
 
 //save a workout
-router.post("/saveWorkout", async (req, res) => {
+router.post("/saveWorkout", authMiddleware, async (req, res) => {
   const { _id } = req.body;
 
   // console.log(req.body);

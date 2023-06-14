@@ -2,11 +2,20 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
+import { actionsTypes } from "../../../State/Actions/Actions";
 import { useAppContext } from "../../../State/AppContext";
 import { addPost } from "../../../utils/API";
 
 const AddPost = () => {
   const { userData, state, dispatch } = useAppContext();
+
+  const handleImageChange = (e) => {
+    dispatch({
+      type: actionsTypes.UPLOAD_IMAGE,
+      payload: e.target.files[0],
+    });
+    console.log(e.target.files[0]);
+  };
 
   useEffect(() => {
     fetch("http://localhost:5008/workout/getAllCategories")
@@ -15,7 +24,7 @@ const AddPost = () => {
         const arr = res.result.map((obj) => obj.category);
 
         dispatch({
-          type: "CHANGE_CATEGORY",
+          type: actionsTypes.CHANGE_CATEGORY,
           payload: arr,
         });
       });
@@ -32,6 +41,11 @@ const AddPost = () => {
 
     console.log(data);
 
+    if (!state?.image) {
+      window.alert("Please upload an image");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("username", userData?.username);
     formData.append("email", userData?.email);
@@ -39,6 +53,7 @@ const AddPost = () => {
     formData.append("title", data.title);
     formData.append("description", data.description);
     formData.append("muscleGroup", data.muscleGroup);
+    formData.append("image", state?.image);
 
     try {
       console.log(Object.fromEntries(formData));
@@ -101,7 +116,7 @@ const AddPost = () => {
         <div className="form-control w-full ">
           <label className="label">
             <span className="label-text" style={{ color: "white" }}>
-              Post Title
+              Workout Title
             </span>
           </label>
 
@@ -121,7 +136,7 @@ const AddPost = () => {
         <div className="form-control w-full ">
           <label className="label">
             <span className="label-text" style={{ color: "white" }}>
-              Post Description
+              Workout Description
             </span>
           </label>
           <textarea
@@ -142,13 +157,14 @@ const AddPost = () => {
         <div className="form-control w-full ">
           <label className="label">
             <span className="label-text" style={{ color: "white" }}>
-              Post Image
+              Workout Image
             </span>
           </label>
 
           <input
             style={{ color: "black" }}
             type="file"
+            onChange={handleImageChange}
             accept="image/jpeg,image/png,image/jpg,image/gif,image/webp"
             placeholder="Enter Image"
             className="input input-bordered w-full py-2 "

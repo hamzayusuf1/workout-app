@@ -59,12 +59,14 @@ const PostDetails = () => {
           <p>{`Posted By: ${postDetails.username}`}</p>
 
           <p>{`${postDate}`}</p>
-          <button
-            className=" p-4 badge bg-workout-primary text-workout-secondary font-bold"
-            onClick={handleSaveWorkout}
-          >
-            Save Workout
-          </button>
+          {userData.username && (
+            <button
+              className=" p-4 badge bg-workout-primary text-workout-secondary font-bold"
+              onClick={handleSaveWorkout}
+            >
+              Save Workout
+            </button>
+          )}
         </div>
       </div>
     </div>

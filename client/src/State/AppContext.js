@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useReducer } from "react";
 
+import { actionsTypes } from "./Actions/Actions";
+
 const AppContext = createContext();
 
 export const useAppContext = () => {
@@ -7,15 +9,22 @@ export const useAppContext = () => {
 };
 
 const initialState = {
-  category: ["back"],
+  category: [],
+  image: "",
 };
 
 export const addPostReducer = (state, action) => {
   switch (action.type) {
-    case "CHANGE_CATEGORY":
+    case actionsTypes.CHANGE_CATEGORY:
       return {
         ...state,
         category: action.payload,
+      };
+
+    case actionsTypes.UPLOAD_IMAGE:
+      return {
+        ...state,
+        image: action.payload,
       };
 
     default:
