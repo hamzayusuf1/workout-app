@@ -11,6 +11,9 @@ const Posts = () => {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(6);
   const pages = Math.ceil(count / size);
+  const [category, setCategory] = useState("");
+
+  console.log(category);
 
   // useEffect(() => {
   //   const getPosts = async () => {
@@ -84,7 +87,7 @@ const Posts = () => {
 
   useEffect(() => {
     const getPosts = async () => {
-      const url = `http://localhost:5008/workout/getAllPosts`;
+      const url = `http://localhost:5008/workout/getAllPosts?category=${category}`;
       // const token = AuthContext.loggedIn() ? AuthContext.getToken() : 0;
       // console.log(token);
       fetch(url, {
@@ -94,7 +97,8 @@ const Posts = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          setPosts(data?.result);
+          setPosts(data?.posts);
+          setCount(data?.count);
         });
     };
     getPosts();
@@ -145,6 +149,9 @@ const Posts = () => {
             <div className="input-group">
               <select
                 className="select select-bordered text-xl"
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
                 defaultValue={""}
               >
                 <option value="" selected>

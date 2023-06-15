@@ -10,7 +10,8 @@ export const useAppContext = () => {
 
 const initialState = {
   category: [],
-  image: "",
+  addPostImage: "",
+  editProfileImage: "",
 };
 
 export const addPostReducer = (state, action) => {
@@ -21,10 +22,16 @@ export const addPostReducer = (state, action) => {
         category: action.payload,
       };
 
-    case actionsTypes.UPLOAD_IMAGE:
+    case actionsTypes.UPLOAD_POST_IMAGE:
       return {
         ...state,
-        image: action.payload,
+        addPostImage: action.payload,
+      };
+
+    case actionsTypes.UPLOAD_PROFILE_IMAGE:
+      return {
+        ...state,
+        editProfileImage: action.payload,
       };
 
     default:

@@ -1,8 +1,22 @@
-import React, { useContext } from "react";
-import { Link, Outlet } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useAppContext } from "../../State/AppContext";
+import { AuthContext } from "../../utils/AuthProvider";
 
 const Dashboard = () => {
+  const { userAuth, user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (!userAuth.isAuth) {
+  //       navigate("/user/login");
+  //     } else {
+  //       navigate("/dashboard");
+  //     }
+  //   }, 300);
+  // }, [userAuth.isAuth, navigate]);
+
   const { userData } = useAppContext();
   return (
     <div className="flex " style={{ color: "white" }}>

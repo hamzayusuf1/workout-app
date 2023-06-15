@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@tanstack/react-query": "^4.29.13",
     "concurrently": "^8.1.0"
   }
 }

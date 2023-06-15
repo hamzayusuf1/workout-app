@@ -14,6 +14,8 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  height: { type: String },
+  weight: { type: String },
   email: {
     type: String,
     required: true,

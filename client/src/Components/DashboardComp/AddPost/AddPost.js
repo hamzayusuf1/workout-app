@@ -11,15 +11,16 @@ const AddPost = () => {
 
   const handleImageChange = (e) => {
     dispatch({
-      type: actionsTypes.UPLOAD_IMAGE,
+      type: actionsTypes.UPLOAD_POST_IMAGE,
       payload: e.target.files[0],
     });
-    console.log(e.target.files[0]);
   };
 
   useEffect(() => {
     fetch("http://localhost:5008/workout/getAllCategories")
-      .then((res) => res.json())
+      .then((res) => {
+        return res.json();
+      })
       .then((res) => {
         const arr = res.result.map((obj) => obj.category);
 
@@ -39,12 +40,12 @@ const AddPost = () => {
   const handleUpload = async (data, event) => {
     event.preventDefault();
 
-    console.log(data);
+    console.log(state.addPostImage);
 
-    if (!state?.image) {
-      window.alert("Please upload an image");
-      return;
-    }
+    // if (!state?.addPostImage) {
+    //   window.alert("Please upload an image");
+    //   return;
+    // }
 
     const formData = new FormData();
     formData.append("username", userData?.username);
@@ -53,7 +54,7 @@ const AddPost = () => {
     formData.append("title", data.title);
     formData.append("description", data.description);
     formData.append("muscleGroup", data.muscleGroup);
-    formData.append("image", state?.image);
+    // formData.append("image", state?.addPostImage);
 
     try {
       console.log(Object.fromEntries(formData));
@@ -62,10 +63,10 @@ const AddPost = () => {
       formData.forEach(function (value, key) {
         object[key] = value;
       });
-      var json = JSON.stringify(object);
-      console.log(json);
+      // var json = JSON.stringify(object);
+      // console.log(json);
 
-      const response = await addPost(json);
+      const response = await addPost(formData);
       console.log(response);
       if (!response.ok) {
         return await response.json().then((res) => {

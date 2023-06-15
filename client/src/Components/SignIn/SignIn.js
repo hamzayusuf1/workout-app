@@ -24,6 +24,7 @@ const SignIn = () => {
 
   const handleLogin = async (data, event) => {
     event.preventDefault();
+    console.log(data);
     // fetch("http://localhost:5008/user/login", {
     //   method: "POST",
     //   headers: {
@@ -54,7 +55,10 @@ const SignIn = () => {
     // console.log(response.json());
 
     try {
-      const response = await loginUser(data);
+      const response = await loginUser({
+        email: "hamza@yusuf.com",
+        password: "hamza321",
+      });
 
       if (!response.ok) {
         return await response.json().then((res) => {
@@ -85,7 +89,10 @@ const SignIn = () => {
             </label>
             <input
               type="text"
-              {...register("email", { required: "Email address is required" })}
+              {...register(
+                "email"
+                // { required: "Email address is required" }
+              )}
               className="input input-bordered w-full max-w-xs"
               style={{ color: "black" }}
             />
@@ -104,13 +111,16 @@ const SignIn = () => {
             </label>
             <input
               type="password"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be longer than 6 characters",
-                },
-              })}
+              {...register(
+                "password"
+                //  {
+                //   required: "Password is required",
+                //   minLength: {
+                //     value: 6,
+                //     message: "Password must be longer than 6 characters",
+                //   },
+                // }
+              )}
               style={{ color: "black" }}
               className="input input-bordered w-full max-w-xs"
             />

@@ -30,13 +30,20 @@ export const getAllPosts = () => {
 };
 
 export const addPost = (postData) => {
-  return fetch("/workout/addPost", {
+  return fetch("/addPost", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      // "Content-Type": "application/json",
       // "Content-Length": postData.getLengthSync(),
     },
     body: postData,
+  });
+};
+
+export const editProfile = (userDetails) => {
+  return fetch("/user/userUpdate", {
+    method: "PUT",
+    body: userDetails,
   });
 };
 
