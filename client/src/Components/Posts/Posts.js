@@ -12,6 +12,7 @@ const Posts = () => {
   const [size, setSize] = useState(6);
   const pages = Math.ceil(count / size);
   const [category, setCategory] = useState("");
+  const [searchCategory, setSearchCategory] = useState([]);
 
   console.log(category);
 
@@ -86,6 +87,18 @@ const Posts = () => {
   // });
 
   useEffect(() => {
+    fetch("http://localhost:5008/workout/getAllCategories")
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        const arr = res.result.map((obj) => obj.category);
+
+        setSearchCategory(arr);
+        console.log(arr);
+        console.log(searchCategory);
+      });
+
     const getPosts = async () => {
       const url = `http://localhost:5008/workout/getAllPosts?category=${category}`;
       // const token = AuthContext.loggedIn() ? AuthContext.getToken() : 0;
@@ -102,7 +115,7 @@ const Posts = () => {
         });
     };
     getPosts();
-  }, []);
+  }, [category]);
 
   return (
     <div className=" mt-10">
@@ -157,6 +170,9 @@ const Posts = () => {
                 <option value="" selected>
                   Select
                 </option>
+                {searchCategory.map((value) => (
+                  <option value={value}>{value}</option>
+                ))}
               </select>
               <button className="btn">Go</button>
             </div>
