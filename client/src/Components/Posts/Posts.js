@@ -9,7 +9,7 @@ const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [count, setCount] = useState("");
   const [page, setPage] = useState(0);
-  const [size, setSize] = useState(3);
+  const [size, setSize] = useState(6);
   const [regex, setRegex] = useState("");
   const pages = Math.ceil(count / size);
   const [category, setCategory] = useState("");
@@ -116,7 +116,7 @@ const Posts = () => {
         });
     };
     getPosts();
-  }, [category, page, regex]);
+  }, [category, page, regex, size]);
 
   return (
     <div className=" mt-10">

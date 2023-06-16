@@ -50,7 +50,7 @@ router.get("/getAllPosts", async (req, res) => {
   if (regex) {
     query.title = {
       $regex: regex,
-      $options: "i",
+      $options: "i", // this is to ensure case sensitivity doesn't affect search
     };
   }
 
