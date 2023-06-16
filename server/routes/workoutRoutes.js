@@ -69,6 +69,20 @@ router.get("/getAllPosts", async (req, res) => {
     });
 });
 
+//query for most recent section
+router.get("/getRecentPosts", (req, res) => {
+  Workout.find()
+    .sort({ postDate: -1 })
+    .limit(6)
+    .then((result) => {
+      console.log(result);
+      res.status(202).send({ posts: result });
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
 //get single post
 router.get("/getPosts/:id", async (req, res) => {
   const id = req.params.id;

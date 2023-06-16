@@ -9,7 +9,7 @@ const SliderCard = ({ sliderCardPost }) => {
 
   return (
     <div
-      className="border-2 border-workout-primary me-4 "
+      className="border-2 border-workout-primary me-4 rounded-lg shadow-2xl m-6 "
       style={{ color: "white" }}
     >
       <figure>

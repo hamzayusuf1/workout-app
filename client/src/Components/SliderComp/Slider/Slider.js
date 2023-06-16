@@ -8,24 +8,18 @@ import { CiDumbbell } from "react-icons/ci";
 import "./Slider.css";
 
 const MainSlider = () => {
-  const [sliderCardPosts, setSliderCardPosts] = useState([
-    {
-      _id: 1,
-      image:
-        "https://t4.ftcdn.net/jpg/03/50/81/89/240_F_350818949_lJTfzSTDr79e9Kn55PUVZjN19ct20uGc.jpg",
-      title: "Bench Press",
-      muscleGroupId: "chest",
-      description: "Use barbell to progresivley increase weight on chest",
-    },
-    {
-      _id: 2,
-      image:
-        "https://t4.ftcdn.net/jpg/03/50/81/89/240_F_350818949_lJTfzSTDr79e9Kn55PUVZjN19ct20uGc.jpg",
-      title: "Pull ups",
-      muscleGroupId: "Back",
-      description: "Use you body weight to strengthen your muscles",
-    },
-  ]);
+  const [sliderCardPosts, setSliderCardPosts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5008/workout/getRecentPosts")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setSliderCardPosts(data.posts);
+        console.log(data);
+      });
+  }, []);
 
   const settings = {
     dots: true,
