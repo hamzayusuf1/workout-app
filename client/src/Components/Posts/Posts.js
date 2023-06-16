@@ -9,7 +9,8 @@ const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [count, setCount] = useState("");
   const [page, setPage] = useState(0);
-  const [size, setSize] = useState(6);
+  const [size, setSize] = useState(3);
+  const [regex, setRegex] = useState("");
   const pages = Math.ceil(count / size);
   const [category, setCategory] = useState("");
   const [searchCategory, setSearchCategory] = useState([]);
@@ -100,7 +101,7 @@ const Posts = () => {
       });
 
     const getPosts = async () => {
-      const url = `http://localhost:5008/workout/getAllPosts?category=${category}`;
+      const url = `http://localhost:5008/workout/getAllPosts?category=${category}&page=${page}&size=${size}&regex=${regex}`;
       // const token = AuthContext.loggedIn() ? AuthContext.getToken() : 0;
       // console.log(token);
       fetch(url, {
@@ -115,7 +116,7 @@ const Posts = () => {
         });
     };
     getPosts();
-  }, [category]);
+  }, [category, page, regex]);
 
   return (
     <div className=" mt-10">
@@ -132,7 +133,10 @@ const Posts = () => {
               <div className="input-group">
                 <input
                   type="text"
-                  placeholder="Search…"
+                  onChange={(e) => {
+                    setRegex(e.target.value);
+                  }}
+                  placeholder="Search for workouts"
                   className="input input-bordered text-xl"
                 />
                 <button className="btn btn-square">

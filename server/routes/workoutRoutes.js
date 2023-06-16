@@ -41,15 +41,26 @@ router.get("/getAllPosts", async (req, res) => {
 
   console.log(postCount);
 
-  const { category } = req.query;
+  const { category, page, size, regex } = req.query;
 
   let query = {};
+
+  console.log(req.query);
+
+  if (regex) {
+    query.title = {
+      $regex: regex,
+      $options: "i",
+    };
+  }
 
   if (category) {
     query.muscleGroup = category;
   }
 
   Workout.find(query)
+    .skip(page * size)
+    .limit(size)
     .then((result) => {
       res.status(202).send({ posts: result, count: postCount });
     })
