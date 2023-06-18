@@ -72,7 +72,7 @@ router.get("/getAllPosts", async (req, res) => {
 //query for most recent section
 router.get("/getRecentPosts", (req, res) => {
   Workout.find()
-    .sort({ postDate: -1 })
+    .sort({ postDate: 1 })
     .limit(6)
     .then((result) => {
       console.log(result);

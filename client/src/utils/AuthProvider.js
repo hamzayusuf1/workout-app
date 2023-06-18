@@ -11,25 +11,25 @@ const AuthProvider = ({ children }) => {
 
   const url = `http://localhost:5008/user/findUser/${token}`;
 
-  //   const { data: findUser = [token] } = useQuery({
-  //     queryKey: [token],
-  //     queryFn: async () => {
-  //       const res = await fetch(url);
-  //       const data = await res.json();
-  //       setUser(data.user);
-  //       console.log(data);
-  //       return data;
-  //     },
-  //   });
+  const { data: findUser = [token] } = useQuery({
+    queryKey: [token],
+    queryFn: async () => {
+      const res = await fetch(url);
+      const data = await res.json();
+      setUser(data.user);
+      console.log(data);
+      return data;
+    },
+  });
 
-  //   useEffect(() => {
-  //     if (token) {
-  //       setUserAuth({
-  //         token,
-  //         isAuth: true,
-  //       });
-  //     }
-  //   }, []);
+  useEffect(() => {
+    if (token) {
+      setUserAuth({
+        token,
+        isAuth: true,
+      });
+    }
+  }, []);
 
   const logout = () => {
     setUserAuth(false);
