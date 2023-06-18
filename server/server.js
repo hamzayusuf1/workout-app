@@ -57,84 +57,104 @@ db.once("open", () => {
   });
 });
 
+app.post("/editProfile", upload, async (req, res) => {
+  const date = new Date();
+
+  const { _id } = req.body;
+
+  const exists = await User.findOne({ _id: _id });
+
+  console.log(exists);
+
+  if (!exists) {
+    return res.status(404).json({ message: "User does not exist" });
+  }
+
+  const update = {
+    $set: req.body,
+  };
+
+  const updatedUser = await User.findOneAndUpdate({ _id: _id }, update, {
+    new: true,
+    runValidators: true,
+  });
+  res.status(202).json(updatedUser);
+});
+
 app.post("/addPost", upload, async (req, res) => {
   const date = new Date();
 
   // console.log(req.file.path);
   console.log(req.body);
 
-  await Workout.create({ ...req.body, postDate: date })
-    .then((workout) => {
-      return User.findOneAndUpdate(
-        { email: req.body.email },
-        {
-          $addToSet: { posts: workout._id },
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-    })
-    .then((user) => {
-      !user
-        ? res.status(404).json({
-            message: "Application created, but found no user with that ID",
-          })
-        : res.json("Created the application");
-    })
-    .catch((err) => {
-      res.status(500).json(err);
-    });
+  // await Workout.create({ ...req.body, postDate: date })
+  //   .then((workout) => {
+  //     return User.findOneAndUpdate(
+  //       { email: req.body.email },
+  //       {
+  //         $addToSet: { posts: workout._id },
+  //       },
+  //       {
+  //         new: true,
+  //         runValidators: true,
+  //       }
+  //     );
+  //   })
+  //   .then((user) => {
+  //     !user
+  //       ? res.status(404).json({
+  //           message: "Application created, but found no user with that ID",
+  //         })
+  //       : res.json("Created the application");
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).json(err);
+  //   });
 });
 
-app.post("/upda", async (req, res) => {
-  console.log(req);
+// User signup
+app.post("/signup", async (req, res) => {
+  const { username, email, password } = req.body;
+
+  console.log(User);
+
+  const exisitingUser = await User.findOne({ email: email });
+
+  if (exisitingUser) {
+    return res.status(400).json({ message: "User already exists" });
+  }
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const newUser = await User.create({
+    email: email,
+    password: hashedPassword,
+    username: username,
+  });
+
+  const token = signToken(newUser);
+
+  res.status(201).json({ user: newUser, token: token });
 });
 
-// // User signup
-// app.post("/signup", async (req, res) => {
-//   const { username, email, password } = req.body;
+//User login
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
 
-//   console.log(User);
+  const userExists = await User.findOne({ email: email });
 
-//   const exisitingUser = await User.findOne({ email: email });
+  if (!userExists) {
+    return res
+      .status(400)
+      .json({ message: "No user with these credentials, please sign up" });
+  }
 
-//   if (exisitingUser) {
-//     return res.status(400).json({ message: "User already exists" });
-//   }
-//   const hashedPassword = await bcrypt.hash(password, 10);
+  const correctPw = await userExists.isCorrectPassword(password);
 
-//   const newUser = await User.create({
-//     email: email,
-//     password: hashedPassword,
-//     username: username,
-//   });
+  if (!correctPw) {
+    return res.status(400).json({ message: "Incorrect password" });
+  }
 
-//   const token = signToken(newUser);
+  const token = signToken(userExists);
 
-//   res.status(201).json({ user: newUser, token: token });
-// });
-
-// //User login
-// app.post("/login", async (req, res) => {
-//   const { email, password } = req.body;
-
-//   const userExists = await User.findOne({ email: email });
-
-//   if (!userExists) {
-//     return res
-//       .status(400)
-//       .json({ message: "No user with these credentials, please sign up" });
-//   }
-
-//   const correctPw = await userExists.isCorrectPassword(password);
-
-//   if (!correctPw) {
-//     return res.status(400).json({ message: "Incorrect password" });
-//   }
-
-//   const token = signToken(userExists);
-
-//   return res.status(200).json({ user: userExists, token: token });
-// });
+  return res.status(200).json({ user: userExists, token: token });
+});

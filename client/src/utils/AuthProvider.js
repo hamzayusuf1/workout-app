@@ -9,6 +9,8 @@ const AuthProvider = ({ children }) => {
 
   let token = window.localStorage.getItem("id_token");
 
+  console.log(userAuth);
+
   const url = `http://localhost:5008/user/findUser/${token}`;
 
   const { data: findUser = [token] } = useQuery({
@@ -17,7 +19,7 @@ const AuthProvider = ({ children }) => {
       const res = await fetch(url);
       const data = await res.json();
       setUser(data.user);
-      console.log(data);
+      console.log(res);
       return data;
     },
   });

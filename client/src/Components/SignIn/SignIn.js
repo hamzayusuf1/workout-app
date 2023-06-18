@@ -55,10 +55,7 @@ const SignIn = () => {
     // console.log(response.json());
 
     try {
-      const response = await loginUser({
-        email: "hamza@yusuf.com",
-        password: "hamza321",
-      });
+      const response = await loginUser(data);
 
       if (!response.ok) {
         return await response.json().then((res) => {

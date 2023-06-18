@@ -7,15 +7,15 @@ const Dashboard = () => {
   const { userAuth, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (!userAuth.isAuth) {
-        navigate("/user/login");
-      } else {
-        navigate("/dashboard");
-      }
-    }, 300);
-  }, [userAuth.isAuth, navigate]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (!userAuth.isAuth) {
+  //       navigate("/user/login");
+  //     } else {
+  //       navigate("/dashboard");
+  //     }
+  //   }, 300);
+  // }, [userAuth.isAuth, navigate]);
 
   const { userData } = useAppContext();
   return (

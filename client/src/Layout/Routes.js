@@ -12,6 +12,7 @@ import EditProfile from "../Components/DashboardComp/EditProfile/EditProfile";
 import AllMyPosts from "../Components/DashboardComp/AllMyPosts/AllMyPosts";
 import MySavedWorkouts from "../Components/DashboardComp/MySavedWorkouts/MySavedWorkouts";
 import AddCategory from "../Components/DashboardComp/AddCategory/AddCategory";
+import TestEdit from "../Components/DashboardComp/TestEdit/TestEdit";
 
 const router = createBrowserRouter([
   {
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/dashboard/editProfile",
-            element: <EditProfile></EditProfile>,
+            element: <TestEdit></TestEdit>,
           },
           {
             path: "/dashboard/allMyPosts",

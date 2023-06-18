@@ -61,7 +61,7 @@ const EditProfile = () => {
     // }
 
     try {
-      fetch("http://localhost:5008/upda", {
+      fetch("http://localhost:5008/workout/getRecentPosts", {
         method: "POST",
         // headers: {
         //   "Content-Type": "application/json",

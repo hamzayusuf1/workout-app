@@ -17,7 +17,6 @@ const MainSlider = () => {
       })
       .then((data) => {
         setSliderCardPosts(data.posts);
-        console.log(data);
       });
   }, []);
 

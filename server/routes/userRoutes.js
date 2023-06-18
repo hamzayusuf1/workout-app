@@ -134,8 +134,4 @@ router.get("/findUser/:token", async (req, res) => {
 //   res.status(202).json(updatedUser);
 // });
 
-router.post("/upda", (req, res) => {
-  console.log(req.body);
-});
-
 module.exports = router;

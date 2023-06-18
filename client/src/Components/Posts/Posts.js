@@ -15,8 +15,6 @@ const Posts = () => {
   const [category, setCategory] = useState("");
   const [searchCategory, setSearchCategory] = useState([]);
 
-  console.log(category);
-
   // useEffect(() => {
   //   const getPosts = async () => {
   //     try {
@@ -96,8 +94,6 @@ const Posts = () => {
         const arr = res.result.map((obj) => obj.category);
 
         setSearchCategory(arr);
-        console.log(arr);
-        console.log(searchCategory);
       });
 
     const getPosts = async () => {
