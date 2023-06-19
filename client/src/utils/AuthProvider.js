@@ -51,7 +51,6 @@ const AuthProvider = ({ children }) => {
   // }, []);
 
   const logout = () => {
-    setUserAuth(false);
     window.localStorage.removeItem("id_token");
     window.location.assign("/");
   };

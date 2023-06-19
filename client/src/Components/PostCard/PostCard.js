@@ -72,7 +72,7 @@ const PostCard = ({ post }) => {
               View Details
             </button>
           </Link>
-          {userData.username && (
+          {Auth.loggedIn() && (
             <button
               className=" p-4 badge bg-workout-primary text-workout-secondary font-bold"
               onClick={handleSaveWorkout}
