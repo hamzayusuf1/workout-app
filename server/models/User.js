@@ -27,6 +27,9 @@ const userSchema = new Schema({
     required: true,
     minlength: 6,
   },
+  image: {
+    type: String,
+  },
   posts: {
     type: Schema.Types.ObjectId,
     ref: "Workout",

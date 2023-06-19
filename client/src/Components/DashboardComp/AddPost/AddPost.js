@@ -42,10 +42,10 @@ const AddPost = () => {
 
     console.log(state.addPostImage);
 
-    // if (!state?.addPostImage) {
-    //   window.alert("Please upload an image");
-    //   return;
-    // }
+    if (!state?.addPostImage) {
+      window.alert("Please upload an image");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("username", userData?.username);
@@ -54,7 +54,7 @@ const AddPost = () => {
     formData.append("title", data.title);
     formData.append("description", data.description);
     formData.append("muscleGroup", data.muscleGroup);
-    // formData.append("image", state?.addPostImage);
+    formData.append("image", state?.addPostImage);
 
     try {
       console.log(Object.fromEntries(formData));
@@ -76,8 +76,8 @@ const AddPost = () => {
       }
       const newWorkout = await response.json();
 
+      console.log(newWorkout);
       return toast.success("Add post successfully");
-      console.log(response);
     } catch (error) {
       console.log(error);
     }

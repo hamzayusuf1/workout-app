@@ -8,11 +8,11 @@ import SignUp from "../Components/SignUp/SignUp";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import DashboardHome from "../Components/DashboardComp/DashboardHome/DashboardHome";
 import AddPost from "../Components/DashboardComp/AddPost/AddPost";
-import EditProfile from "../Components/DashboardComp/EditProfile/EditProfile";
+
 import AllMyPosts from "../Components/DashboardComp/AllMyPosts/AllMyPosts";
 import MySavedWorkouts from "../Components/DashboardComp/MySavedWorkouts/MySavedWorkouts";
 import AddCategory from "../Components/DashboardComp/AddCategory/AddCategory";
-import TestEdit from "../Components/DashboardComp/TestEdit/TestEdit";
+import EditProfile from "../Components/DashboardComp/EditProfile/EditProfile";
 
 const router = createBrowserRouter([
   {
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/dashboard/editProfile",
-            element: <TestEdit></TestEdit>,
+            element: <EditProfile></EditProfile>,
           },
           {
             path: "/dashboard/allMyPosts",

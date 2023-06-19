@@ -25,7 +25,6 @@ const PostCard = ({ post }) => {
     const response = await fetch("http://localhost:5008/workout/saveWorkout", {
       method: "POST",
       headers: {
-        authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoiaGFtemF5dXN1ZjI2IiwiZW1haWwiOiJoYW16YUB5dXN1Zi5jb20iLCJfaWQiOiI2NDg4NTgzOWQ2ZGI2NTAwMTllODZhM2IifSwiaWF0IjoxNjg2Njc5MTE4LCJleHAiOjE2ODY2ODYzMTh9.V9CpTnyWqODXI2YwbZE9Mi1kysAIMY5RPf2VpChaPnw"}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({

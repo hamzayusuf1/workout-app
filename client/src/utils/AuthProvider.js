@@ -9,29 +9,46 @@ const AuthProvider = ({ children }) => {
 
   let token = window.localStorage.getItem("id_token");
 
-  console.log(userAuth);
+  console.log(user);
 
   const url = `http://localhost:5008/user/findUser/${token}`;
 
-  const { data: findUser = [token] } = useQuery({
-    queryKey: [token],
-    queryFn: async () => {
-      const res = await fetch(url);
-      const data = await res.json();
-      setUser(data.user);
-      console.log(res);
-      return data;
-    },
-  });
+  // const { data: findUser = [token] } = useQuery({
+  //   queryKey: [token],
+  //   queryFn: async () => {
+  //     const res = await fetch(url);
+  //     const data = await res.json();
+  //     setUser(data.user);
+  //     console.log(res);
+  //     return data;
+  //   },
+  // });
 
   useEffect(() => {
-    if (token) {
-      setUserAuth({
-        token,
-        isAuth: true,
+    fetch(url)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        if (data.message) {
+          console.log(data.message);
+          return;
+        }
+        setUser({
+          user: data.user,
+          isAuth: true,
+        });
       });
-    }
-  }, []);
+  }, [token]);
+
+  // useEffect(() => {
+  //   if (token) {
+  //     setUserAuth({
+  //       token,
+  //       isAuth: true,
+  //     });
+  //   }
+  // }, []);
 
   const logout = () => {
     setUserAuth(false);

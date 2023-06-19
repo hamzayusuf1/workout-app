@@ -18,6 +18,9 @@ const Dashboard = () => {
   // }, [userAuth.isAuth, navigate]);
 
   const { userData } = useAppContext();
+
+  console.log(userData);
+
   return (
     <div className="flex " style={{ color: "white" }}>
       <div className="font-poppins antialiased">
@@ -31,8 +34,8 @@ const Dashboard = () => {
                 <Link to="/dashboard">
                   {" "}
                   <img
-                    src={"/images/user.png"}
-                    alt="Avatar user"
+                    src={`http://localhost:5008/${userData?.image}`}
+                    alt="Profile picture"
                     className="w-10 md:w-16 rounded-full mx-auto"
                   />
                 </Link>

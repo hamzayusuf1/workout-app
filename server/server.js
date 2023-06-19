@@ -16,7 +16,7 @@ const routes = require("./routes");
 //multer middleware
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./uploads");
+    cb(null, "uploads");
   },
   filename: function (req, file, cb) {
     const name = Date.now() + "_" + file.originalname;
@@ -44,12 +44,8 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(bodyParser.json());
-// app.use(express.json({ length: 52428800 }));
 app.use(routes);
-// app.use("/uploads", express.static("uploads"));
-// app.use(express.json({ limit: 52428800 }));
-// app.use(express.json({ limit: "50mb", extended: true }));
-// app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use("/uploads", express.static("uploads"));
 
 db.once("open", () => {
   app.listen(PORT, () => {
@@ -62,6 +58,14 @@ app.post("/editProfile", upload, async (req, res) => {
 
   const { _id } = req.body;
 
+  console.log(req.file.path);
+
+  if (!_id) {
+    return res
+      .status(404)
+      .json({ message: "Login details expired, please login again" });
+  }
+
   const exists = await User.findOne({ _id: _id });
 
   console.log(exists);
@@ -71,7 +75,7 @@ app.post("/editProfile", upload, async (req, res) => {
   }
 
   const update = {
-    $set: req.body,
+    $set: { ...req.body, image: req.file.path },
   };
 
   const updatedUser = await User.findOneAndUpdate({ _id: _id }, update, {
@@ -84,32 +88,31 @@ app.post("/editProfile", upload, async (req, res) => {
 app.post("/addPost", upload, async (req, res) => {
   const date = new Date();
 
-  // console.log(req.file.path);
-  console.log(req.body);
+  console.log(req.file.path);
 
-  // await Workout.create({ ...req.body, postDate: date })
-  //   .then((workout) => {
-  //     return User.findOneAndUpdate(
-  //       { email: req.body.email },
-  //       {
-  //         $addToSet: { posts: workout._id },
-  //       },
-  //       {
-  //         new: true,
-  //         runValidators: true,
-  //       }
-  //     );
-  //   })
-  //   .then((user) => {
-  //     !user
-  //       ? res.status(404).json({
-  //           message: "Application created, but found no user with that ID",
-  //         })
-  //       : res.json("Created the application");
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).json(err);
-  //   });
+  await Workout.create({ ...req.body, postDate: date, image: req.file.path })
+    .then((workout) => {
+      return User.findOneAndUpdate(
+        { email: req.body.email },
+        {
+          $addToSet: { posts: workout._id },
+        },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+    })
+    .then((user) => {
+      !user
+        ? res.status(404).json({
+            message: "Application created, but found no user with that ID",
+          })
+        : res.json("Created the application");
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
 });
 
 // User signup
