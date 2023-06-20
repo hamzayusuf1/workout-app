@@ -108,6 +108,18 @@ router.post("/saveWorkout", async (req, res) => {
   return res.status(201).json(newlySaved);
 });
 
+//get saved workouts
+router.get("/mysaved", (req, res) => {
+  SavedWorkouts.find()
+    .sort({ postDate: -1 })
+    .then((result) => {
+      res.status(202).send({ saved: result });
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
 //add categories
 router.post("/addCategory", async (req, res) => {
   const categoryName = req.body.categoryName;

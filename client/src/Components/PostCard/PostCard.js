@@ -12,10 +12,6 @@ const PostCard = ({ post }) => {
   const handleSaveWorkout = async (e) => {
     e.preventDefault();
 
-    const token = Auth.loggedIn() ? Auth.getToken() : 0;
-
-    console.log(post);
-
     const userEmail = user?.user?.email;
     const username = user?.user?.username;
     console.log(userEmail);
@@ -23,24 +19,20 @@ const PostCard = ({ post }) => {
 
     const { _id, title, description, muscleGroup, image, postDate } = post;
 
-    const res = await fetch("http://localhost:5008/workout/saveWorkout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userEmail,
-        username,
-        _id,
-        title,
-        description,
-        image,
-        muscleGroup,
-        postDate,
-      }),
-    });
+    const workoutObj = {
+      userEmail,
+      username,
+      _id,
+      title,
+      description,
+      image,
+      muscleGroup,
+      postDate,
+    };
 
-    if (res.status !== 200) {
+    const res = await saveWorkout(workoutObj);
+
+    if (res.status !== 201) {
       const error = await res.json();
       toast.error(error.message);
       return;

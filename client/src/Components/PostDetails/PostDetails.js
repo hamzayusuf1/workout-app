@@ -2,49 +2,51 @@ import React, { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
+import { saveWorkout } from "../../utils/API";
 import { useAppContext } from "../../State/AppContext";
 import { AuthContext } from "../../utils/AuthProvider";
+import Auth from "../../utils/AuthContext";
 
 const PostDetails = () => {
   const { user } = useContext(AuthContext);
 
-  const { userData } = useAppContext();
-  const { email, username } = userData;
   const postDetails = useLoaderData();
+
   const { _id, title, description, muscleGroup, postDate, image } = postDetails;
 
-  // const handleSaveWorkout = (e) => {
-  //   e.preventDefault();
-  //   const { _id, title, description, muscleGroup } = postDetails;
-  // };
-
-  const handleSaveWorkout = (e) => {
+  const handleSaveWorkout = async (e) => {
     e.preventDefault();
 
-    const { _id, title, description, muscleGroup, image } = postDetails;
+    const userEmail = user?.user?.email;
+    const username = user?.user?.username;
+    console.log(userEmail);
+    console.log(username);
 
-    fetch("http://localhost:5008/workout/saveWorkout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        _id,
-        username,
-        email,
-        title,
-        description,
-        muscleGroup,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message) {
-          toast.error(`${data.message}`);
-        } else {
-          toast.success("Workout Saved Successfully");
-        }
-      });
+    const { _id, title, description, muscleGroup, image, postDate } =
+      postDetails;
+
+    const workoutObj = {
+      userEmail,
+      username,
+      _id,
+      title,
+      description,
+      image,
+      muscleGroup,
+      postDate,
+    };
+
+    const res = await saveWorkout(workoutObj);
+
+    if (res.status !== 201) {
+      const error = await res.json();
+      toast.error(error.message);
+      return;
+    }
+
+    const data = await res.json();
+    toast.success("Workout Saved Successfully");
+    return data;
   };
   return (
     <div
@@ -66,7 +68,7 @@ const PostDetails = () => {
           <p>{`Posted By: ${postDetails.username}`}</p>
 
           <p>{`${postDate}`}</p>
-          {userData.username && (
+          {Auth.loggedIn() && (
             <button
               className=" p-4 badge bg-workout-primary text-workout-secondary font-bold"
               onClick={handleSaveWorkout}
