@@ -180,7 +180,7 @@ const AddPost = () => {
           </span>{" "}
           <select
             name="muscleGroup"
-            className="my-10 border p-2 w-1/2 border-lime-800 rounded-lg"
+            className="my-2 border p-2 w-1/2 border-lime-800 rounded-lg"
             style={{ color: "black" }}
             {...register("muscleGroup", { required: true })}
           >
@@ -188,6 +188,10 @@ const AddPost = () => {
               <option value={item}>{item}</option>
             ))}
           </select>
+          <h1 className="text-center mb-5 text-warning">
+            If your desired category isn't there, just head to the add category
+            section
+          </h1>
         </div>
         <span className="text-sm text-error">
           {errors?.muscleGroup?.message}
