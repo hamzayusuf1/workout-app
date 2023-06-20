@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { CiDumbbell } from "react-icons/ci";
-import AuthContext from "../../utils/AuthContext";
+import { AuthContext } from "../../utils/AuthProvider";
 
 import PostCard from "../PostCard/PostCard";
 import { getAllPosts } from "../../utils/API";
+import AddCategory from "../DashboardComp/AddCategory/AddCategory";
 
 const Posts = () => {
+  const { user } = useContext(AuthContext);
+
   const [posts, setPosts] = useState([]);
   const [count, setCount] = useState("");
   const [page, setPage] = useState(0);

@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
 import { actionsTypes } from "../../../State/Actions/Actions";
 import { useAppContext } from "../../../State/AppContext";
+import { AuthContext } from "../../../utils/AuthProvider";
 
 const EditProfile = () => {
-  const { userData, setUserData, state, dispatch } = useAppContext();
+  const { state, dispatch } = useAppContext();
+
+  const { user, setUser } = useContext(AuthContext);
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const {
@@ -31,7 +35,7 @@ const EditProfile = () => {
       return;
     }
 
-    const id = userData._id;
+    const id = user?.user?._id;
     console.log(data);
 
     const formData = new FormData();
@@ -77,7 +81,7 @@ const EditProfile = () => {
             setErrorMessage(response.message);
             return;
           }
-          setUserData(response);
+          setUser({ ...user, user: response });
           return toast.success("Updated user successfully");
         });
     } catch (error) {

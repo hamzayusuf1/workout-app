@@ -69,6 +69,8 @@ router.post("/login", async (req, res) => {
       height: userExists.height,
       weight: userExists.weight,
       image: userExists.image,
+      firstName: userExists.firstName,
+      lastName: userExists.lastName,
     },
     process.env.SECRET_KEY,
     {

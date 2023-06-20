@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 
-import { useAppContext } from "../../../State/AppContext";
+import { AuthContext } from "../../../utils/AuthProvider";
 
 const DashboardHome = () => {
-  const { userData } = useAppContext();
+  const { user } = useContext(AuthContext);
+
   return (
-    <div>{`Welcome To Our Dashboard, ${userData.firstName}  ${userData.lastName}`}</div>
+    <div>{`Welcome To Our Dashboard, ${user?.user?.firstName}  ${user?.user?.lastName}`}</div>
   );
 };
 

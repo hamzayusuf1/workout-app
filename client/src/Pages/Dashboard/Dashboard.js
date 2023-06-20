@@ -4,22 +4,18 @@ import { useAppContext } from "../../State/AppContext";
 import { AuthContext } from "../../utils/AuthProvider";
 
 const Dashboard = () => {
-  const { userAuth, user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (!userAuth.isAuth) {
-  //       navigate("/user/login");
-  //     } else {
-  //       navigate("/dashboard");
-  //     }
-  //   }, 300);
-  // }, [userAuth.isAuth, navigate]);
-
-  const { userData } = useAppContext();
-
-  console.log(userData);
+  useEffect(() => {
+    setTimeout(() => {
+      if (!user.isAuth) {
+        navigate("/user/login");
+      } else {
+        navigate("/dashboard");
+      }
+    }, 300);
+  }, [user.isAuth, navigate]);
 
   return (
     <div className="flex " style={{ color: "white" }}>
@@ -34,24 +30,24 @@ const Dashboard = () => {
                 <Link to="/dashboard">
                   {" "}
                   <img
-                    src={`http://localhost:5008/${userData?.image}`}
+                    src={`http://localhost:5008/${user?.user?.image}`}
                     alt="Profile picture"
                     className="w-10 md:w-16 rounded-full mx-auto"
                   />
                 </Link>
                 <div>
                   <h2 className="font-medium text-xs md:text-sm text-center text-teal-500">
-                    {userData.username}
+                    {user?.user?.username}
                   </h2>
 
                   <p className="text-xs text-gray-500 text-center">
-                    {userData.email}
+                    {user?.user?.email}
                   </p>
                   <p className="text-xs text-gray-500 text-center">
-                    Weight: {userData.weight}
+                    Weight: {user?.user?.weight}
                   </p>
                   <p className="text-xs text-gray-500 text-center">
-                    Height: {userData.height}
+                    Height: {user?.user?.height}
                   </p>
                 </div>
                 <div className="divider"></div>

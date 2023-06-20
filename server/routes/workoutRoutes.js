@@ -75,8 +75,6 @@ router.get("/getRecentPosts", (req, res) => {
     .sort({ postDate: -1 })
     .limit(6)
     .then((result) => {
-      console.log(result);
-
       res.status(202).send({ posts: result });
     })
     .catch((err) => {
@@ -94,10 +92,10 @@ router.get("/getPosts/:id", async (req, res) => {
 });
 
 //save a workout
-router.post("/saveWorkout", authMiddleware, async (req, res) => {
-  const { _id } = req.body;
+router.post("/saveWorkout", async (req, res) => {
+  const { _id, userEmail } = req.body;
 
-  // console.log(req.body);
+  console.log(req.body);
 
   const alreadySaved = await SavedWorkouts.findOne({ _id: _id });
 
@@ -105,7 +103,7 @@ router.post("/saveWorkout", authMiddleware, async (req, res) => {
     return res.status(400).json({ message: "Workout has already been saved" });
   }
 
-  const newlySaved = SavedWorkouts.create(req.body);
+  const newlySaved = SavedWorkouts.create({ ...req.body, email: userEmail });
 
   return res.status(201).json(newlySaved);
 });

@@ -1,13 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
 import { actionsTypes } from "../../../State/Actions/Actions";
 import { useAppContext } from "../../../State/AppContext";
 import { addPost } from "../../../utils/API";
+import { AuthContext } from "../../../utils/AuthProvider";
 
 const AddPost = () => {
-  const { userData, state, dispatch } = useAppContext();
+  const { user } = useContext(AuthContext);
+
+  const { state, dispatch } = useAppContext();
 
   const handleImageChange = (e) => {
     dispatch({
@@ -48,8 +51,8 @@ const AddPost = () => {
     }
 
     const formData = new FormData();
-    formData.append("username", userData?.username);
-    formData.append("email", userData?.email);
+    formData.append("username", user?.user?.username);
+    formData.append("email", user?.user?.email);
     formData.append("firstName", data.firstName);
     formData.append("title", data.title);
     formData.append("description", data.description);

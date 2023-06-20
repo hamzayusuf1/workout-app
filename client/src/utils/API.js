@@ -56,3 +56,13 @@ export const addCateogryReq = (category) => {
     body: JSON.stringify({ category }),
   });
 };
+
+export const saveWorkout = (workoutData, token) => {
+  return fetch("/workout/saveWorkout", {
+    method: "POST",
+    headers: {
+      authorization: `Bearer: ${token}`,
+    },
+    body: workoutData,
+  });
+};

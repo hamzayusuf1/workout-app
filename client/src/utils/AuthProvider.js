@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { createContext, useEffect, useState } from "react";
 
-export const AuthContext = createContext();
+export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
-  const [userAuth, setUserAuth] = useState(false);
   const [user, setUser] = useState({});
 
   let token = window.localStorage.getItem("id_token");
@@ -24,6 +23,7 @@ const AuthProvider = ({ children }) => {
   //   },
   // });
 
+  console.log(user);
   useEffect(() => {
     fetch(url)
       .then((res) => {
@@ -55,10 +55,9 @@ const AuthProvider = ({ children }) => {
     window.location.assign("/");
   };
   const authInfo = {
-    userAuth,
-    setUserAuth,
     logout,
     user,
+    setUser,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

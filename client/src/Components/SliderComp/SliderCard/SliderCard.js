@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
 const SliderCard = ({ sliderCardPost }) => {
-  const { _id, title, description, image, muscleGroupId } = sliderCardPost;
+  const { _id, title, description, image, muscleGroup } = sliderCardPost;
   const handleSaveWorkout = (e) => {
     e.preventDefault();
   };
@@ -13,11 +13,15 @@ const SliderCard = ({ sliderCardPost }) => {
       style={{ color: "white" }}
     >
       <figure>
-        <img className=" h-72 w-full " src={`${image}`} alt="Shoes" />
+        <img
+          className=" h-72 w-full "
+          src={`http://localhost:5008/${image}`}
+          alt="Shoes"
+        />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{title}</h2>
-        <h2 className="card-title">{muscleGroupId}</h2>
+        <h2 className="card-title">{muscleGroup}</h2>
         <p>{description.slice(0, 100)}</p>
 
         <div className="w-full mt-6">

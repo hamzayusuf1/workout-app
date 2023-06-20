@@ -4,11 +4,7 @@ import React from "react";
 
 import Auth from "../../utils/AuthContext";
 
-import { useAppContext } from "../../State/AppContext";
-
 const Navbar = () => {
-  const { userData, setUserData } = useAppContext();
-
   const menuItems = (
     <>
       <li>
@@ -43,13 +39,7 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
-        <Link
-          to="/"
-          className="btn btn-ghost normal-case text-xl"
-          onClick={() => {
-            console.log(userData);
-          }}
-        >
+        <Link to="/" className="btn btn-ghost normal-case text-xl">
           Logo
         </Link>
       </div>

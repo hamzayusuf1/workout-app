@@ -67,7 +67,6 @@ const SignIn = () => {
 
       setUserData(correctData.user);
       Auth.login(correctData.token);
-      navigate("/");
     } catch (error) {}
 
     // navigate("/");
