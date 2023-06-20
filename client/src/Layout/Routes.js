@@ -55,8 +55,10 @@ const router = createBrowserRouter([
             element: <EditProfile></EditProfile>,
           },
           {
-            path: "/dashboard/allMyPosts",
+            path: "/dashboard/allMyPosts/:id",
             element: <AllMyPosts></AllMyPosts>,
+            loader: ({ params }) =>
+              fetch(`http://localhost:5008/workout/myPosts/${params?.id}`),
           },
           {
             path: "/dashboard/mySavedWorkouts",

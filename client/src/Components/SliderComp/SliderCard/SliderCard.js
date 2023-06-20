@@ -1,10 +1,50 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+
+import { saveWorkout } from "../../../utils/API";
+import Auth from "../../../utils/AuthContext";
+import { AuthContext } from "../../../utils/AuthProvider";
 
 const SliderCard = ({ sliderCardPost }) => {
+  const { user } = useContext(AuthContext);
+
+  console.log(sliderCardPost);
+
   const { _id, title, description, image, muscleGroup } = sliderCardPost;
-  const handleSaveWorkout = (e) => {
+  const handleSaveWorkout = async (e) => {
     e.preventDefault();
+
+    const userEmail = user?.user?.email;
+    const username = user?.user?.username;
+    console.log(userEmail);
+    console.log(username);
+
+    const { _id, title, description, muscleGroup, image, postDate } =
+      sliderCardPost;
+
+    const workoutObj = {
+      userEmail,
+      username,
+      _id,
+      title,
+      description,
+      image,
+      muscleGroup,
+      postDate,
+    };
+
+    const res = await saveWorkout(workoutObj);
+
+    if (res.status !== 201) {
+      const error = await res.json();
+      toast.error(error.message);
+      return;
+    }
+
+    const data = await res.json();
+    toast.success("Workout Saved Successfully");
+    return data;
   };
 
   return (
@@ -26,13 +66,18 @@ const SliderCard = ({ sliderCardPost }) => {
 
         <div className="w-full mt-6">
           <Link to={`/postDetails/${_id}`}>
-            <button className=" p-4 me-4 badge bg-workout-primary text-workout-secondary font-bold">
+            <button className=" p-4 mb-2 me-4 badge bg-workout-primary text-workout-secondary font-bold">
               View Details
             </button>
           </Link>
-          <button className=" p-4 badge bg-workout-primary text-workout-secondary font-bold">
-            Save Workout
-          </button>
+          {Auth.loggedIn() && (
+            <button
+              onClick={handleSaveWorkout}
+              className=" p-4 badge bg-workout-primary text-workout-secondary font-bold"
+            >
+              Save Workout
+            </button>
+          )}
         </div>
       </div>
     </div>

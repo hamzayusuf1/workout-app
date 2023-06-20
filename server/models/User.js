@@ -30,10 +30,12 @@ const userSchema = new Schema({
   image: {
     type: String,
   },
-  posts: {
-    type: Schema.Types.ObjectId,
-    ref: "Workout",
-  },
+  posts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Workout",
+    },
+  ],
 });
 
 // A virtual property `fullName` that gets and sets the user's full name

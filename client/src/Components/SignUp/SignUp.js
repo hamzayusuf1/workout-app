@@ -37,9 +37,9 @@ const SignUp = () => {
           if (data.message) {
             return setErrorMessage(data.message);
           }
-          Auth.login(data.token);
-          setUserData(data.user);
-          navigate("/");
+          // Auth.login(data.token);
+          // setUserData(data.user);
+          navigate("/user/login");
         });
     } catch (error) {
       console.log(error);
@@ -82,7 +82,7 @@ const SignUp = () => {
                 data-temp-mail-org="0"
               />
               <span className="text-sm text-error">
-                {errors?.lastName?.message}
+                {errors?.username?.message}
               </span>
             </div>
 
@@ -120,7 +120,7 @@ const SignUp = () => {
                 <input
                   type="text"
                   {...register("lastName", {
-                    required: "You need to provide your last name",
+                    required: "Last name is required",
                   })}
                   // name="name"
 

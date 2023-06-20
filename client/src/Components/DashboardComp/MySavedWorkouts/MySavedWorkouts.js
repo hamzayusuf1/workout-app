@@ -19,19 +19,8 @@ const MySavedWorkouts = ({ post }) => {
         return res.json();
       })
       .then((data) => {
-        console.log(data.saved);
         setPosts(data?.saved);
       });
-
-    // if (res.status !== 202) {
-    //   const error = await res.json();
-    //   setErrorMes(error.message);
-    //   toast.error(error.message);
-    //   return () => {};
-    // }
-    // const data = await res.json();
-    // toast.success("Workout Saved Successfully");
-    // return data;
   }, []);
 
   return (
@@ -40,7 +29,6 @@ const MySavedWorkouts = ({ post }) => {
       {errorMes ? (
         <div>
           {`Sorry we couldn't render your workouts, please try again later`}
-          dashboard
         </div>
       ) : (
         <div className="col-span-3">
@@ -52,7 +40,6 @@ const MySavedWorkouts = ({ post }) => {
               <PostCard key={post._id} post={post}></PostCard>
             ))}
           </div>
-          <div className="pagination w-full text-center mt-8 text-workout-primary "></div>
         </div>
       )}
     </>

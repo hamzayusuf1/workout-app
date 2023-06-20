@@ -58,8 +58,6 @@ app.post("/editProfile", upload, async (req, res) => {
 
   const { _id } = req.body;
 
-  console.log(req.file.path);
-
   if (!_id) {
     return res
       .status(404)
@@ -67,8 +65,6 @@ app.post("/editProfile", upload, async (req, res) => {
   }
 
   const exists = await User.findOne({ _id: _id });
-
-  console.log(exists);
 
   if (!exists) {
     return res.status(404).json({ message: "User does not exist" });

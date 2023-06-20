@@ -73,7 +73,7 @@ const Dashboard = () => {
                   <span className="">Add New Category</span>
                 </Link>
                 <Link
-                  to="/dashboard/allMyPosts"
+                  to={`/dashboard/allMyPosts/${user?.user?._id}`}
                   className="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out"
                 >
                   <span className="">All My Posts</span>

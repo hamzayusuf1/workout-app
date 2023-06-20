@@ -121,6 +121,24 @@ router.get("/mysaved", (req, res) => {
     });
 });
 
+//getMyPosts
+router.get("/myPosts/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+
+  User.findOne({ _id: id })
+    .populate("posts")
+    .exec()
+    .then((result) => {
+      res.status(202).send({ user: result });
+      console.log(result.posts);
+    })
+    .catch((err) => {
+      res.json(err);
+      console.log(err);
+    });
+});
+
 //add categories
 router.post("/addCategory", async (req, res) => {
   const categoryName = req.body.categoryName;
