@@ -95,15 +95,16 @@ router.get("/getPosts/:id", async (req, res) => {
 router.post("/saveWorkout", async (req, res) => {
   const { _id, userEmail } = req.body;
 
-  console.log(req.body);
-
   const alreadySaved = await SavedWorkouts.findOne({ _id: _id });
 
   if (alreadySaved) {
     return res.status(400).json({ message: "Workout has already been saved" });
   }
 
-  const newlySaved = SavedWorkouts.create({ ...req.body, email: userEmail });
+  const newlySaved = SavedWorkouts.create({
+    ...req.body,
+    email: userEmail,
+  });
 
   return res.status(201).json(newlySaved);
 });

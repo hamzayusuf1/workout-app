@@ -24,7 +24,7 @@ const workoutSchema = new Schema({
   },
   image: {
     type: String,
-    // required: true,
+    required: true,
   },
   postDate: {
     type: String,

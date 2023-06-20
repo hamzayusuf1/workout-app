@@ -28,7 +28,11 @@ const savedSchema = new Schema({
   },
   image: {
     type: String,
-    // required: true,
+    required: true,
+  },
+  postDate: {
+    type: String,
+    required: true,
   },
 });
 

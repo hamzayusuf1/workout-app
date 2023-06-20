@@ -48,7 +48,7 @@ const PostCard = ({ post }) => {
       <figure>
         <img
           className=" h-72 w-full rounded-t-lg"
-          src={`${post.image}`}
+          src={`http://localhost:5008/${post.image}`}
           alt="gym"
         />
       </figure>
