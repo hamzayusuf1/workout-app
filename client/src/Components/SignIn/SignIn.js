@@ -25,34 +25,6 @@ const SignIn = () => {
   const handleLogin = async (data, event) => {
     event.preventDefault();
     console.log(data);
-    // fetch("http://localhost:5008/user/login", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     if (data.message) {
-    //       // Auth.login(data?.token);
-    //       console.log(data.message);
-    //       setErrorMessage(data.message);
-
-    //       return;
-
-    //       //TODO!!!!!!-ADD THE ERROR MESSAGE TO SHOW WITH ERROR FROM THE BACKEND
-    //     }
-
-    //     console.log(data);
-    //     localStorage.setItem("id_token", data.token);
-    //     navigate("/");
-    //   });
-    // .catch((err) => {
-    //   console.log(err);
-    // });
-
-    // console.log(response.json());
 
     try {
       const response = await loginUser(data);
@@ -68,8 +40,6 @@ const SignIn = () => {
       setUserData(correctData.user);
       Auth.login(correctData.token);
     } catch (error) {}
-
-    // navigate("/");
   };
   return (
     <div className="h-[800px] flex justify-center items-center">

@@ -11,7 +11,7 @@ const MainSlider = () => {
   const [sliderCardPosts, setSliderCardPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5008/workout/getRecentPosts")
+    fetch("https://workout-server-1meu.onrender.com/workout/getRecentPosts")
       .then((res) => {
         return res.json();
       })

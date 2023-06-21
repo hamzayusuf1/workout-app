@@ -30,7 +30,7 @@ const Dashboard = () => {
                 <Link to="/dashboard">
                   {" "}
                   <img
-                    src={`http://localhost:5008/${user?.user?.image}`}
+                    src={`https://workout-server-1meu.onrender.com/${user?.user?.image}`}
                     alt="Profile picture"
                     className="w-10 md:w-16 rounded-full mx-auto"
                   />

@@ -20,7 +20,7 @@ const AddPost = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:5008/workout/getAllCategories")
+    fetch("https://workout-server-1meu.onrender.com/workout/getAllCategories")
       .then((res) => {
         return res.json();
       })

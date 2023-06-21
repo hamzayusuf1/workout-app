@@ -8,31 +8,12 @@ import PostCard from "../../PostCard/PostCard";
 
 const AllMyPosts = () => {
   const [errorMes, setErrorMes] = useState("");
-  // const [posts, setPosts] = useState([]);
 
   const posts = useLoaderData().user?.posts;
 
   console.log(posts);
 
-  // useEffect(() => {
-  //   fetch("http://localhost:5008/workout/myPosts/:id")
-  //     .then((res) => {
-  //       if (res.status !== 202) {
-  //         return res.json().then((res) => {
-  //           setErrorMes(res.message);
-  //           toast.error(res.message);
-  //         });
-  //       }
-  //       return res.json();
-  //     })
-  //     .then((data) => {
-  //       console.log(data);
-  //       // setPosts(data?.posts);
-  //     });
-  // }, []);
-
   return (
-    // <div>hello world</div>
     <>
       {errorMes ? (
         <div>

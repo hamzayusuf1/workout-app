@@ -10,7 +10,7 @@ const AuthProvider = ({ children }) => {
 
   console.log(user);
 
-  const url = `http://localhost:5008/user/findUser/${token}`;
+  const url = `https://workout-server-1meu.onrender.com/user/findUser/${token}`;
 
   // const { data: findUser = [token] } = useQuery({
   //   queryKey: [token],

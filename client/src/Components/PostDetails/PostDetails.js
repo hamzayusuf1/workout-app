@@ -57,7 +57,7 @@ const PostDetails = () => {
         <figure>
           <img
             className="w-[800px] rounded-lg"
-            src={`http://localhost:5008/${image}`}
+            src={`https://workout-server-1meu.onrender.com/${image}`}
             alt="Exercise"
           />
         </figure>

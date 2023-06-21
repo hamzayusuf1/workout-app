@@ -27,7 +27,9 @@ const router = createBrowserRouter([
         path: "/postDetails/:id",
         element: <PostDetails></PostDetails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5008/workout/getPosts/${params?.id}`),
+          fetch(
+            `https://workout-server-1meu.onrender.com/workout/getPosts/${params?.id}`
+          ),
       },
 
       {
@@ -58,7 +60,9 @@ const router = createBrowserRouter([
             path: "/dashboard/allMyPosts/:id",
             element: <AllMyPosts></AllMyPosts>,
             loader: ({ params }) =>
-              fetch(`http://localhost:5008/workout/myPosts/${params?.id}`),
+              fetch(
+                `https://workout-server-1meu.onrender.com/workout/getPosts/${params?.id}`
+              ),
           },
           {
             path: "/dashboard/mySavedWorkouts",

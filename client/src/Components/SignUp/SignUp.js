@@ -23,7 +23,7 @@ const SignUp = () => {
     console.log(data);
 
     try {
-      fetch("http://localhost:5008/user/signup", {
+      fetch("https://workout-server-1meu.onrender.com/user/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

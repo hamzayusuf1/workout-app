@@ -55,7 +55,7 @@ const SliderCard = ({ sliderCardPost }) => {
       <figure>
         <img
           className=" h-72 w-full "
-          src={`http://localhost:5008/${image}`}
+          src={`https://workout-server-1meu.onrender.com/${image}`}
           alt="Shoes"
         />
       </figure>

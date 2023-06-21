@@ -66,7 +66,7 @@ const EditProfile = () => {
       // var json = JSON.stringify(object);
       // console.log(json);
 
-      fetch("http://localhost:5008/editProfile", {
+      fetch("https://workout-server-1meu.onrender.com/editProfile", {
         method: "POST",
         // headers: {
         //   "Content-Type": "application/json",

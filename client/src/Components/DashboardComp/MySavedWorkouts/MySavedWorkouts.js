@@ -8,7 +8,7 @@ const MySavedWorkouts = ({ post }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5008/workout/mySaved")
+    fetch("https://workout-server-1meu.onrender.com/workout/mySaved")
       .then((res) => {
         if (res.status !== 202) {
           return res.json().then((res) => {

@@ -19,7 +19,7 @@ const Posts = () => {
   const [searchCategory, setSearchCategory] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5008/workout/getAllCategories")
+    fetch("https://workout-server-1meu.onrender.com/workout/getAllCategories")
       .then((res) => {
         return res.json();
       })
@@ -30,7 +30,7 @@ const Posts = () => {
       });
 
     const getPosts = async () => {
-      const url = `http://localhost:5008/workout/getAllPosts?category=${category}&page=${page}&size=${size}&regex=${regex}`;
+      const url = `https://workout-server-1meu.onrender.com/workout/getAllPosts?category=${category}&page=${page}&size=${size}&regex=${regex}`;
       // const token = AuthContext.loggedIn() ? AuthContext.getToken() : 0;
       // console.log(token);
       fetch(url, {

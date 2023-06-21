@@ -1,5 +1,5 @@
 export const loginUser = (userData) => {
-  return fetch("/user/login", {
+  return fetch("https://workout-server-1meu.onrender.com/user/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -9,7 +9,7 @@ export const loginUser = (userData) => {
 };
 
 export const signupUser = (userData) => {
-  return fetch("/user/signup", {
+  return fetch("https://workout-server-1meu.onrender.com/user/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -20,7 +20,7 @@ export const signupUser = (userData) => {
 
 export const getAllPosts = () => {
   return (
-    fetch("/workout/getAllPosts"),
+    fetch("https://workout-server-1meu.onrender.com/workout/getAllPosts"),
     {
       headers: {
         "Content-Type": "application/json",
@@ -30,7 +30,7 @@ export const getAllPosts = () => {
 };
 
 export const addPost = (postData) => {
-  return fetch("/addPost", {
+  return fetch("https://workout-server-1meu.onrender.com/addPost", {
     method: "POST",
     headers: {
       // "Content-Type": "application/json",
@@ -41,14 +41,14 @@ export const addPost = (postData) => {
 };
 
 export const editProfile = (userDetails) => {
-  return fetch("/user/userUpdate", {
+  return fetch("https://workout-server-1meu.onrender.com/user/userUpdate", {
     method: "PUT",
     body: userDetails,
   });
 };
 
 export const addCateogryReq = (category) => {
-  return fetch("/workout/addCategory", {
+  return fetch("https://workout-server-1meu.onrender.com/workout/addCategory", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export const addCateogryReq = (category) => {
 };
 
 export const saveWorkout = (workoutData) => {
-  return fetch("/workout/saveWorkout", {
+  return fetch("https://workout-server-1meu.onrender.com/workout/saveWorkout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
