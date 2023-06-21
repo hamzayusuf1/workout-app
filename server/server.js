@@ -47,6 +47,10 @@ app.use(bodyParser.json());
 app.use(routes);
 app.use("/uploads", express.static("uploads"));
 
+app.get("/", (req, res) => {
+  res.send({ message: "Hello World" });
+});
+
 db.once("open", () => {
   app.listen(PORT, () => {
     console.log(`API server running on PORT ${PORT}`);
