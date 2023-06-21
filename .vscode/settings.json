@@ -1,0 +1,6 @@
+{
+  //to show .Git folder
+  "files.exclude": {
+    "**/.git": false
+  }
+}

@@ -12,6 +12,8 @@ const AllMyPosts = () => {
 
   const posts = useLoaderData().user?.posts;
 
+  console.log(posts);
+
   // useEffect(() => {
   //   fetch("http://localhost:5008/workout/myPosts/:id")
   //     .then((res) => {
