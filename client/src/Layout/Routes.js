@@ -61,7 +61,7 @@ const router = createBrowserRouter([
             element: <AllMyPosts></AllMyPosts>,
             loader: ({ params }) =>
               fetch(
-                `https://workout-server-1meu.onrender.com/workout/getPosts/${params?.id}`
+                `https://workout-server-1meu.onrender.com/workout/myPosts/${params?.id}`
               ),
           },
           {

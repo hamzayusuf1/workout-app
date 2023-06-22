@@ -139,6 +139,39 @@ router.get("/myPosts/:id", (req, res) => {
     });
 });
 
+//delete posts
+router.delete("/deletePost", async (req, res) => {
+  const { id, email } = req.body;
+
+  console.log(email);
+
+  await Workout.deleteOne({ _id: req.body.id })
+    .then((workout) => {
+      if (workout.deletedCount) {
+        return User.findOneAndUpdate(
+          { email: req.body.email },
+          {
+            $pull: { posts: id },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+    })
+    .then((user) => {
+      !user
+        ? res.status(404).json({
+            message: "Application deleted, but found no user with that ID",
+          })
+        : res.json("Deleted the application");
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+});
+
 //add categories
 router.post("/addCategory", async (req, res) => {
   const categoryName = req.body.categoryName;

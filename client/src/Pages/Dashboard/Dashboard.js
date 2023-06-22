@@ -7,6 +7,8 @@ const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  console.log(user?.user?._id);
+
   useEffect(() => {
     setTimeout(() => {
       if (!user.isAuth) {

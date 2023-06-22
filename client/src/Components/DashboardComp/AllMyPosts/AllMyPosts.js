@@ -8,6 +8,7 @@ import PostCard from "../../PostCard/PostCard";
 
 const AllMyPosts = () => {
   const [errorMes, setErrorMes] = useState("");
+  // const [posts]
 
   const posts = useLoaderData().user?.posts;
 
@@ -26,7 +27,7 @@ const AllMyPosts = () => {
             style={{ color: "white" }}
           >
             {posts.map((post) => (
-              <PostCard key={post._id} post={post}></PostCard>
+              <PostCard key={post._id} post={post} deleteBtn={true}></PostCard>
             ))}
           </div>
         </div>
