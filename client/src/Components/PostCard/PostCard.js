@@ -11,6 +11,8 @@ const PostCard = ({ post, deleteBtn }) => {
 
   const { _id, title, description, muscleGroup, image, postDate } = post;
 
+  console.log(post.image);
+
   const userEmail = user?.user?.email;
   const username = user?.user?.username;
 
@@ -46,7 +48,7 @@ const PostCard = ({ post, deleteBtn }) => {
 
   const handleDeleteWorkout = async (e) => {
     e.preventDefault();
-    fetch("http://localhost:5008/workout/deletePost", {
+    fetch("https://workout-server-1meu.onrender.com/workout/deletePost", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

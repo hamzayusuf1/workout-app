@@ -7,7 +7,9 @@ const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  console.log(user?.user?._id);
+  const imgLink = user?.user?.image;
+
+  // console.log(user?.user?.image);
 
   useEffect(() => {
     setTimeout(() => {
@@ -32,7 +34,11 @@ const Dashboard = () => {
                 <Link to="/dashboard">
                   {" "}
                   <img
-                    src={`https://workout-server-1meu.onrender.com/${user?.user?.image}`}
+                    src={
+                      user?.user?.image
+                        ? `https://workout-server-1meu.onrender.com/${imgLink}`
+                        : `images/user.png`
+                    }
                     alt="Profile picture"
                     className="w-10 md:w-16 rounded-full mx-auto"
                   />

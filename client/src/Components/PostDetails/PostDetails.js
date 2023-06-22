@@ -65,7 +65,7 @@ const PostDetails = () => {
           <h2 className="card-title">{title}</h2>
           <h2 className="card-title">{muscleGroup}</h2>
           <p>{description}</p>
-          <p>{`Posted By: ${postDetails.username}`}</p>
+          <p>{`Posted by: ${postDetails.username}`}</p>
 
           <p>{`${postDate}`}</p>
           {Auth.loggedIn() && (
